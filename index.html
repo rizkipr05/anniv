@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You, My Dearest 🐾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    .lb { font-family: 'Libre Baskerville', serif !important; font-weight: 700; }
+    .letter-body p { color: #e6dfd3; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; line-height: 1.5; margin-bottom: 14px; }
+
+    /* ── Album / Collage ── */
+    .album-scroll { flex: 1; overflow-y: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+    .album { position: relative; width: 100%; height: 1670px; }
+    .album-title1 { position: absolute; left: 22px; top: 24px; font-family: 'Libre Baskerville', serif; font-weight: 700; color: #f3ede4; font-size: 1.1rem; letter-spacing: 0.2px; }
+    .album-title2 { position: absolute; left: 122px; top: 32px; font-family: 'Great Vibes', cursive; color: #f3ede4; font-size: 3.4rem; line-height: 1; }
+    .album-note { position: absolute; color: #f5ebe6; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.72rem; line-height: 1.35; text-align: center; text-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+    .pol {
+      position: absolute; background: #ffffff; padding: 6px 6px 21px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3); border-radius: 2px;
+      transition: transform .3s ease; box-sizing: border-box;
+    }
+    .pol:hover { transform: rotate(0deg) scale(1.04) !important; z-index: 20; }
+    .pol.no-cap { padding-bottom: 6px !important; }
+    .pol.wide-cap { padding-bottom: 27px !important; }
+    .pol .ph {
+      width: 100%; overflow: hidden; background: #252834;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .pol .ph + .ph { margin-top: 5px; }
+    .pol .ph img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; display: block; }
+    .pol .cap {
+      position: absolute; left: 4px; right: 4px; bottom: 4px; text-align: center;
+      font-family: 'Nunito', 'Montserrat', sans-serif; font-weight: 600; font-size: 0.58rem; line-height: 1.2; color: #222;
+    }
+    .pol .crown { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 1.6rem; z-index: 2; }
+
+    /* ── Gifts ── */
+    #screen-gift { justify-content: space-evenly; padding: 26px 20px 22px; gap: 0; }
+    .gift-title { font-family: 'Libre Baskerville', serif; font-weight: 700; color: #1a1a1a; text-align: center; font-size: 1.02rem; line-height: 1.32; }
+    .gift-grid { display: grid; grid-template-columns: repeat(2, 110px); justify-content: center; column-gap: 44px; row-gap: 10px; }
+    .gift-grid .gift-box:last-child { grid-column: 1 / span 2; justify-self: center; }
+    .gift-box { width: 110px; cursor: pointer; transition: transform .25s ease; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.22)); animation: giftWiggle 3.2s ease-in-out infinite; }
+    .gift-box:nth-child(2) { animation-delay: .4s; } .gift-box:nth-child(3) { animation-delay: .8s; }
+    .gift-box:nth-child(4) { animation-delay: 1.2s; } .gift-box:nth-child(5) { animation-delay: 1.6s; }
+    .gift-box:hover { transform: scale(1.08) rotate(-3deg); }
+    .gift-box:active { transform: scale(0.94); }
+    @keyframes giftWiggle { 0%,86%,100% { rotate: 0deg; } 89% { rotate: -6deg; } 92% { rotate: 6deg; } 95% { rotate: -3deg; } }
+    .gift-open { justify-content: space-between; padding: 0 0 34px; gap: 0; position: relative; overflow: hidden; }
+    .gift-stage { position: relative; width: 100%; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .gift-lid { width: 160px; margin-top: 20px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); }
+    .gift-pic { width: 84%; max-width: 320px; margin-top: 14px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: block; }
+    .gift-base { width: 88%; max-width: 340px; margin-top: 8px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22)); }
+    .screen.active .gift-lid { animation: lidPop .8s cubic-bezier(.3,1.6,.5,1) both; }
+    .screen.active .gift-pic { animation: picRise .9s .2s cubic-bezier(.2,1.2,.4,1) both; }
+    @keyframes lidPop { from { transform: translateY(140px) scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes picRise { from { transform: translateY(100px) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+
+    /* ── Music & Playlist ── */
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+    }
+    .eq-bars span {
+      width: 3.5px;
+      background: #ffffff;
+      border-radius: 2px;
+      animation: eqAnim 0.8s ease-in-out infinite alternate;
+    }
+    .eq-bars span:nth-child(1) { height: 14px; animation-delay: 0.1s; }
+    .eq-bars span:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+    .eq-bars span:nth-child(3) { height: 10px; animation-delay: 0s; }
+    @keyframes eqAnim {
+      0% { height: 4px; }
+      100% { height: 18px; }
+    }
+    .song-item {
+      padding: 5px 6px;
+      border-radius: 12px;
+      transition: background 0.2s ease;
+    }
+    .song-item:active {
+      background: rgba(0,0,0,0.06);
+    }
+  </style>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .phone {
+      width: 360px;
+      height: 720px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 2px #333;
+      background: #e6dfd3;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      transform: translateX(60px);
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+    }
+
+    .screen.exit-left {
+      opacity: 0 !important;
+      transform: translateX(-60px) !important;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .text-center { text-align: center; }
+
+    /* ── PIN Screen ── */
+    #screen-pass {
+      background: #971c1e;
+      padding: 20px 16px;
+    }
+    .pass-card {
+      background: #49191a;
+      border-radius: 24px;
+      padding: 20px 16px 16px;
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      gap: 3px;
+    }
+    .pass-card .dog-img {
+      width: 95px;
+      height: auto;
+      margin-bottom: 2px;
+    }
+    .pass-card h1 {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+    .pass-card .subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.72rem;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .pin-dots { display: flex; gap: 8px; margin: 4px 0 2px; }
+    .pin-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      background: transparent; transition: background 0.2s, border-color 0.2s;
+    }
+    .pin-dot.filled { background: #fff; border-color: #fff; }
+
+    .numpad {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      width: 220px; margin-top: 6px; justify-items: center;
+    }
+    .numpad button {
+      background: #ded9d3;
+      color: #1a1a1a; border: none; border-radius: 50%;
+      width: 56px; height: 56px;
+      font-size: 1.25rem; font-weight: 700; font-family: 'Playfair Display', serif;
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    }
+    .numpad button:hover { background: #ffffff; }
+    .numpad button:active { transform: scale(0.92); background: #c8c2bb; }
+
+    .pin-hint { color: rgba(255,255,255,0.45); font-size: 0.68rem; font-style: italic; margin-top: 8px; text-align: center; }
+    .pin-error { color: #ff8a8a; font-size: 0.75rem; font-weight: 600; min-height: 16px; margin-top: 2px; }
+
+    /* ── Light Screens ── */
+    .screen-light { background: #dcd9d4; gap: 15px; }
+
+    /* ── Red Screens ── */
+    .screen-red { background: #a41c27; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: #a41c27; color: #fff; border: none; border-radius: 30px;
+      padding: 10px 24px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(164,28,39,0.3); transition: transform 0.15s;
+    }
+    .btn-primary:active { transform: scale(0.96); }
+
+    .btn-white {
+      background: #fff; color: #a41c27; border: none; border-radius: 30px;
+      padding: 10px 24px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.15s;
+    }
+    .btn-white:active { transform: scale(0.96); }
+    
+    .btn-outline {
+      background: transparent; color: #a41c27; border: 2px solid #a41c27; border-radius: 30px;
+      padding: 8px 24px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: transform 0.15s;
+    }
+    .btn-outline:active { transform: scale(0.96); }
+
+    .btn-back-outline {
+      background: transparent; color: #1a1a1a; border: 2.5px solid #8b1820; border-radius: 30px;
+      padding: 6px 32px; font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600;
+      cursor: pointer; transition: transform 0.15s, background 0.15s;
+    }
+    .btn-back-outline:active { transform: scale(0.95); background: rgba(139, 24, 32, 0.08); }
+
+    .btn-row { display: flex; gap: 14px; align-items: center; justify-content: center; }
+
+    /* ── screen-yes3 (Memory Lane) ── */
+    .dark-card {
+      background: #471114;
+      border-radius: 20px;
+      padding: 60px 30px;
+      text-align: center;
+      color: #fff;
+      width: 85%;
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .dark-card h2 {
+      font-size: 1.45rem;
+      line-height: 1.4;
+      font-weight: normal;
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+
+    /* ── screen-memory (Timeline) ── */
+    #screen-memory { justify-content: flex-start; padding: 30px 20px; overflow-y: auto; }
+    #screen-memory::-webkit-scrollbar { width: 0; }
+    .memory-header h2 { font-size: 1.6rem; color: #333; margin-bottom: 4px; }
+    .memory-header p { font-size: 0.75rem; color: #333; margin-bottom: 25px; font-style: italic; font-family: 'Playfair Display', serif; font-weight: 600; }
+    
+    .timeline {
+      position: relative; margin-left: 10px; padding-left: 20px;
+      border-left: 2px solid #aaa; display: flex; flex-direction: column; gap: 15px; padding-bottom: 10px; width: 100%;
+    }
+    .timeline-item {
+      position: relative; background: #888; color: #fff; border-radius: 10px; padding: 10px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -25px; top: 15px; width: 8px; height: 8px;
+      background: #444; border-radius: 50%;
+    }
+    .timeline-title { font-size: 0.85rem; font-family: 'Playfair Display', serif; }
+    .timeline-date { font-size: 0.65rem; color: #eee; margin-top: -6px; }
+    .timeline-content { display: flex; gap: 10px; }
+    .timeline-img { width: 65px; height: 65px; background: #222; border-radius: 5px; object-fit: cover; }
+    .timeline-text { font-size: 0.65rem; line-height: 1.4; flex: 1; }
+
+    /* ── screen-home (Grid) ── */
+    #screen-home { justify-content: space-evenly; padding: 28px 24px 22px 24px; gap: 0; }
+    #screen-home h2 { font-size: 1.35rem; line-height: 1.25; color: #1a1a1a; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 4px; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 275px; margin: 6px auto 10px auto; }
+    .home-grid-item {
+      background: transparent; border-radius: 12px; padding: 0; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none; transition: transform 0.15s ease, filter 0.15s ease; aspect-ratio: 83 / 90;
+      overflow: hidden;
+    }
+    .home-grid-item:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .home-grid-item:active { transform: scale(0.96); }
+    .home-grid-item img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 12px; }
+
+    .btn-home-replay {
+      background: #971c1e; color: #fff; border: none; border-radius: 999px;
+      padding: 6px 22px; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(151,28,30,0.3); transition: transform 0.15s, background 0.15s;
+    }
+    .btn-home-replay:hover { background: #a82022; }
+    .btn-home-replay:active { transform: scale(0.95); }
+
+    .btn-home-back {
+      background: #dcd9d4; color: #1a1a1a; border: 2px solid #971c1e; border-radius: 999px;
+      padding: 5px 22px; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; transition: transform 0.15s, background 0.15s;
+    }
+    .btn-home-back:hover { background: #cfcbc5; }
+    .btn-home-back:active { transform: scale(0.95); }
+
+    /* ── screen-flower1 (Reasons) ── */
+    #screen-flower1 { justify-content: flex-start; padding: 40px 20px; overflow-y: auto; }
+    #screen-flower1 h2 { font-size: 1.6rem; color: #fff; line-height: 1.3; margin-bottom: 25px; }
+    .reason-list { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-bottom: 20px; }
+    .reason-item { display: flex; background: #fff; border-radius: 8px; overflow: hidden; min-height: 50px; }
+    .reason-icon { background: #1a1a1a; padding: 10px; display: flex; align-items: center; justify-content: center; width: 50px; font-size: 1.5rem; }
+    .reason-text {
+      flex: 1; display: flex; align-items: center; justify-content: center; color: #222; font-weight: 800;
+      font-family: 'Playfair Display', serif; font-size: 0.85rem; padding: 10px; text-align: center; line-height: 1.2;
+    }
+
+    /* Confetti & Animations */
+    .confetti-container { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .confetti-piece { position: absolute; border-radius: 2px; animation: confettiFall linear infinite; opacity: 0; }
+    @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(740px) rotate(720deg); opacity: 0.2; } }
+    @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+    .shake { animation: shake 0.45s ease; }
+    @keyframes heartFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.04); } }
+    .float { animation: heartFloat 2.5s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- ═══════ SCREEN 1: PIN ═══════ -->
+  <div class="screen active" id="screen-pass">
+    <div class="pass-card">
+      <img src="dog_pass.png" alt="star dog" class="dog-img"/>
+      <h1 class="serif">For You, My Dearest</h1>
+      <p class="subtitle">Enter the secret code</p>
+      <div class="pin-dots">
+        <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div><div class="pin-dot" id="d2"></div>
+        <div class="pin-dot" id="d3"></div><div class="pin-dot" id="d4"></div><div class="pin-dot" id="d5"></div>
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <div class="numpad" id="numpad">
+        <button onclick="pressNum('1')">1</button><button onclick="pressNum('2')">2</button><button onclick="pressNum('3')">3</button>
+        <button onclick="pressNum('4')">4</button><button onclick="pressNum('5')">5</button><button onclick="pressNum('6')">6</button>
+        <button onclick="pressNum('7')">7</button><button onclick="pressNum('8')">8</button><button onclick="pressNum('9')">9</button>
+        <div style="visibility:hidden; width:56px; height:56px;"></div>
+        <button onclick="pressNum('0')">0</button>
+        <button onclick="deleteLast()">X</button>
+      </div>
+      <p class="pin-hint">hint : the day our love began</p>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN 2: WELCOME ═══════ -->
+  <div class="screen screen-light" id="screen-welcome">
+    <img src="dog_welcome.png" alt="cute dog with glasses" style="width:145px; height:auto;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.55rem; color:#222; margin-top:20px;">Hi, Dear!!!</h2>
+    <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
+  </div>
+
+  <!-- ═══════ SCREEN 3: QUESTION ═══════ -->
+  <div class="screen screen-light" id="screen-question">
+    <img src="dog_question.png" alt="dog eating strawberry" style="width:150px; height:auto;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.4rem; color:#222; margin-top:20px; line-height:1.35;">Are you ready<br>for the surprise?</h2>
+    <div class="btn-row" style="margin-top:14px; display:flex; gap:14px;">
+      <button class="btn-primary" onclick="goTo('screen-yes1')" style="padding:7px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Yes!</button>
+      <button class="btn-outline" onclick="goTo('screen-no')" style="padding:7px 24px; border-radius:24px; background:transparent; color:#222; font-family:'Playfair Display', serif; font-size:0.95rem; border:1.5px solid #971c1e; cursor:pointer;">Noo</button>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN 4: NO ═══════ -->
+  <div class="screen screen-light" id="screen-no">
+    <img src="dog_no.png" alt="dummy dog" style="width:145px; height:auto;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.35rem; color:#222; line-height:1.35; margin-top:20px;">SKY!!! YOU BIG<br>DUMMY!!!</h2>
+    <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:16px; padding:7px 26px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Back</button>
+  </div>
+
+  <!-- ═══════ SCREEN 5: YES 1 (100 Days) ═══════ -->
+  <div class="screen screen-light" id="screen-yes1">
+    <img src="dog_yes1.png" alt="dog with heart" style="width:150px; height:auto;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.3rem; color:#222; line-height:1.35; margin-top:20px;">Today is a special day,<br>our 100 days anniversary!</h2>
+    <button class="btn-primary" onclick="goTo('screen-yes2')" style="margin-top:14px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
+  </div>
+
+  <!-- ═══════ SCREEN 6: YES 2 (Partner Birthday) ═══════ -->
+  <div class="screen screen-light" id="screen-yes2">
+    <img src="dog_yes2.png" alt="dog standing" style="width:140px; height:auto;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.25rem; color:#222; line-height:1.35; margin-top:20px;">Together with that, I also<br>want to celebrate my<br>partner's birthday!</h2>
+    <button class="btn-primary" onclick="goTo('screen-yes3')" style="margin-top:14px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
+  </div>
+
+  <!-- ═══════ SCREEN: YES3 (Memory Lane) ═══════ -->
+  <div class="screen screen-red" id="screen-yes3">
+    <div class="dark-card">
+      <h2>Shall we take a walk<br>through memory lane,<br>dear?</h2>
+      <button class="btn-white" onclick="goTo('screen-memory')">Let's Go!</button>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN: MEMORY ═══════ -->
+  <div class="screen screen-light" id="screen-memory">
+    <div class="memory-header text-center">
+      <h2>Our Journey So Far</h2>
+      <p>Every step with you has been my<br>favorite kind of story ♥</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-title">Our First Meet</div>
+        <div class="timeline-date">11/01/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline1_meet.jpg" class="timeline-img" alt="Meet">
+          <div class="timeline-text">It all started in the RO M (Right? I think? IDK!) In taking the pavilion where, out of nowhere, you suddenly send me a dm!</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Our First Chat</div>
+        <div class="timeline-date">12/01/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline2_chat.jpg" class="timeline-img" alt="Chat">
+          <div class="timeline-text">Our first conversation. We easily matched, shared a lot of stories, and we just hit it off (Looking back I was surprisingly talkative to you, lulz. I think...)</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Becoming Friends</div>
+        <div class="timeline-date">15/01/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline3_friends.png" class="timeline-img" alt="Friends">
+          <div class="timeline-text">Later, I keep the chat alive (secretly!). I could not pull away. IDK! I didn't wanna loose what we had there and just went right in. Anything happens!!!</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Sudden Proposal?</div>
+        <div class="timeline-date">02/02/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline4_proposal.png" class="timeline-img" alt="Proposal">
+          <div class="timeline-text">The day where we talked about marriage into a bit? Flashly (single, obviously as our previous partners). Then, you suddenly offered yourself! Nu Uh!!!</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Becoming Partner</div>
+        <div class="timeline-date">10/02/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline5_partner.png" class="timeline-img" alt="Partner">
+          <div class="timeline-text">I felt like finally, things lead to real. I fell through the walls, fell with you, I felt comfortable. And just like that, our partnership began.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">First Spotlight Together</div>
+        <div class="timeline-date">14/02/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline3_friends.png" class="timeline-img" alt="Spotlight">
+          <div class="timeline-text">You went the pve with (so we can have a pic together, as u unready... wait... my ...). This is our first spotlight together!</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">We Become Panda?!</div>
+        <div class="timeline-date">16/02/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline6_panda.jpg" class="timeline-img" alt="Panda">
+          <div class="timeline-text">We fall into a bamboo place, and be as panda bby. Plus we did a panda 'You played a you hatful, and happened to be... our legendary panda moment.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">Our Official Wedding</div>
+        <div class="timeline-date">28/02/2025</div>
+        <div class="timeline-content">
+          <img src="photos/timeline7_wedding.png" class="timeline-img" alt="Wedding">
+          <div class="timeline-text">After routine of warming up thing, searching for virtually servers! We sealed our bond and where's... Chinese wedding... (clothing?)</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="padding: 10px 0;">
+      <p style="font-size:0.75rem; font-family:'Playfair Display', serif; color:#333; margin-bottom: 15px; font-weight: 600; line-height: 1.4;">May we keep collecting moments like<br>these for many more days to come,<br>side by side</p>
+      <button class="btn-primary" onclick="goTo('screen-home')">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN: HOME ═══════ -->
+  <div class="screen screen-light" id="screen-home">
+    <h2 class="text-center">Choose Your Next<br>Surprise, Dear!</h2>
+    <div class="home-grid">
+      <div class="home-grid-item" onclick="goTo('screen-cake')">
+        <img src="grid_cherry.png" alt="Puppy with Cherry">
+      </div>
+      <div class="home-grid-item" onclick="goTo('screen-flower')">
+        <img src="grid_flower.png" alt="Puppy with Flower">
+      </div>
+      <div class="home-grid-item" onclick="goTo('screen-letter1')">
+        <img src="grid_letter.png" alt="Puppy with Letter">
+      </div>
+      <div class="home-grid-item" onclick="goTo('screen-music1')">
+        <img src="grid_flute.png" alt="Puppy with Flute">
+      </div>
+      <div class="home-grid-item" onclick="goTo('screen-photo1')">
+        <img src="grid_star_wand.png" alt="Puppy with Star Wand">
+      </div>
+      <div class="home-grid-item" onclick="goTo('screen-gift')">
+        <img src="grid_santa.png" alt="Puppy with Santa Hat">
+      </div>
+    </div>
+    <div class="text-center" style="width: 100%;">
+      <p style="font-size:0.78rem; color:#1a1a1a; font-family:'Playfair Display', serif; font-weight:700; margin-bottom: 12px; line-height: 1.35;">May our journey together<br>continue to bring many more<br>wonderful memories!</p>
+      <div class="btn-row" style="gap: 16px;">
+        <button class="btn-home-replay" onclick="goTo('screen-memory')">Replay</button>
+        <button class="btn-home-back" onclick="goTo('screen-question')">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN: GIFT CHOOSER ═══════ -->
+  <div class="screen screen-light" id="screen-gift">
+    <h2 class="gift-title">Since We're Celebrating<br>Both Your Birthday And<br>Our 100 Days, I Got You<br>Some Gifts!</h2>
+    <div class="gift-grid">
+      <img class="gift-box" id="gift-box-1" src="gifts/box_closed.png?v=3" alt="Gift 1" onclick="goTo('screen-gift1')">
+      <img class="gift-box" id="gift-box-2" src="gifts/box_closed.png?v=3" alt="Gift 2" onclick="goTo('screen-gift2')">
+      <img class="gift-box" id="gift-box-3" src="gifts/box_closed.png?v=3" alt="Gift 3" onclick="goTo('screen-gift3')">
+      <img class="gift-box" id="gift-box-4" src="gifts/box_closed.png?v=3" alt="Gift 4" onclick="goTo('screen-gift4')">
+      <img class="gift-box" id="gift-box-5" src="gifts/box_closed.png?v=3" alt="Gift 5" onclick="goTo('screen-gift5')">
+    </div>
+    <h2 class="gift-title">Which One Would You<br>Like To Open First?</h2>
+    <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
+  </div>
+
+  <!-- ═══════ SCREENS: OPENED GIFTS (dibuat otomatis oleh script di bawah) ═══════ -->
+  <div id="gift-screens" style="display:contents"></div>
+
+  <!-- ═══════ SCREEN: CAKE ═══════ -->
+  <div class="screen screen-light" id="screen-cake">
+    <div class="confetti-container" id="confetti-cake"></div>
+    <h2 style="color:#a41c27; font-size:1.1rem; margin-bottom:-5px; font-family:'Nunito', sans-serif;">✨ Ta-da! ✨</h2>
+    <h2 class="text-center" style="font-size:1.5rem;">A Special Cake<br>For Today's Star!</h2>
+    
+    <div style="position:relative; margin: 30px 0;">
+      <div style="font-size:8rem; text-align:center; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.2)); line-height:1;">🎂</div>
+      <div style="position:absolute; top: 45%; left:50%; transform:translate(-50%, -50%); background:#a41c27; color:white; padding:6px 16px; border-radius:20px; font-weight:bold; font-size:0.9rem; border:2px solid #fff; white-space:nowrap; font-family:'Playfair Display', serif;">Happy Birthday!</div>
+    </div>
+    
+    <h2 class="text-center" style="font-size:1.3rem;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
+    <button class="btn-primary" style="margin-top:20px;" onclick="goTo('screen-cake1')">Blow the Candle</button>
+  </div>
+
+  <!-- ═══════ SCREEN: CAKE 1 ═══════ -->
+  <div class="screen screen-light" id="screen-cake1" style="gap: 8px;">
+    <div class="confetti-container" id="confetti-cake1"></div>
+    <h2 class="text-center serif" style="font-size:1.5rem; line-height:1.35; color:#222; margin-top:5px; margin-bottom: 2px;">Happy Birthday &amp;<br>Happy 100 Days, Dear!</h2>
+    <img src="dog_party_transparent.png" alt="Happy Birthday Dog" class="float" style="width:205px; height:auto; margin: 15px 0 10px 0; cursor: pointer;" />
+    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.35; color:#222; margin-bottom: 4px;">Double The Celebration,<br>Double The Happiness!</h2>
+    <p style="font-size:0.75rem; color:#444; text-align:center; font-family:'Nunito', sans-serif; line-height:1.45; margin-bottom: 18px;">Being with you is one of the best thing<br>that ever happened in my life! 💕💕💕</p>
+    <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
+  </div>
+
+  <!-- ═══════ SCREEN: FLOWER ═══════ -->
+  <div class="screen screen-light" id="screen-flower" style="gap: 6px;">
+    <div class="confetti-container" id="confetti-flower"></div>
+    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.3; color:#a41c27; margin-top:5px; margin-bottom: 2px;">💕 Here's A Bouquet Of<br>Flowers For You! 💕</h2>
+    <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:220px; max-width:85%; height:auto; margin: 15px 0 12px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
+    <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 6px;">Tap The Flowers To<br>Unwrap Your Surprise</h2>
+    <div class="btn-row" style="gap: 14px; margin-top: 10px;">
+      <button class="btn-primary" onclick="goTo('screen-flower1')">Unwrap Surprise</button>
+      <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN: FLOWER 1 (Reasons) ═══════ -->
+  <div class="screen" id="screen-flower1" style="background:#a41c27; justify-content: flex-start; padding: 28px 18px 30px; overflow-y: auto;">
+    <h2 class="text-center serif" style="font-size:1.45rem; line-height:1.3; color:#fff; margin-bottom: 18px; font-weight:700;">Reasons Why I Love<br>Being With You</h2>
+    
+    <div style="display:flex; flex-direction:column; gap:10px; width:100%; margin-bottom:18px;">
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You're such a kind<br>person
+        </div>
+      </div>
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You always make me<br>laugh
+        </div>
+      </div>
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You're very patient<br>with me
+        </div>
+      </div>
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You're someone I can<br>always rely on
+        </div>
+      </div>
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You're the sweetest<br>person I've ever met
+        </div>
+      </div>
+      <div style="display:flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.18);">
+        <div style="background:#1a1a1a; padding:10px; display:flex; align-items:center; justify-content:center; width:48px;">
+          <span style="font-size:1.4rem;">🌹</span>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; color:#222; font-family:'Playfair Display', serif; font-weight:700; font-size:0.85rem; padding:10px 12px; text-align:center; line-height:1.25;">
+          You make me feel<br>special
+        </div>
+      </div>
+    </div>
+    
+    <p style="color:#fff; font-size:0.82rem; text-align:center; font-family:'Playfair Display', serif; font-style:italic; margin-bottom:18px; font-weight:600; line-height:1.35;">
+      Honestly, I Could Probably<br>Make A Whole List, But Then<br>You'd Get Too Proud 😉
+    </p>
+    
+    <button class="btn-home-back" style="background:#ece7df; color:#1a1a1a; border:none; border-radius:999px; padding:10px 36px; font-size:0.92rem; font-family:'Playfair Display', serif; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,0.3); margin:0 auto; display:block; cursor:pointer;" onclick="goTo('screen-home')">Back</button>
+  </div>
+
+  <!-- ═══════ SCREEN: PHOTO 1 ═══════ -->
+  <div class="screen screen-light" id="screen-photo1" style="gap: 5px;">
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">These 100 days have given<br>us so many wonderful little<br>moments</h2>
+    <img src="camera_polaroid.jpg" alt="Instant camera and polaroid" class="float" style="width: 300px; max-width: 100%; height: auto; mix-blend-mode: multiply; margin: 30px 0 35px 0;" />
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">Here are some of the<br>ones I treasure most!</h2>
+    <button class="btn-primary lb" style="margin-top:14px; font-weight:400 !important;" onclick="goTo('screen-collage')">Open The Album</button>
+  </div>
+
+  <!-- ═══════ SCREEN: COLLAGE ═══════ -->
+  <div class="screen" id="screen-collage" style="background: #a41c27; padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+    <div class="album-scroll">
+      <div class="album">
+        <div class="album-title1">100 Days Of</div>
+        <div class="album-title2">Memories</div>
+
+        <div class="pol" style="left:20px; top:112px; width:146px; transform:rotate(-4deg);">
+          <span class="crown">👑</span>
+          <div class="ph" style="height:138px;"><img src="photos/foto1.jpg?v=3" alt=""></div>
+        </div>
+        <div class="album-note" style="left:178px; top:165px; width:155px;">Today Star Is<br>My Beloved Partner!</div>
+
+        <div class="pol wide-cap" style="left:150px; top:285px; width:192px; transform:rotate(5deg);">
+          <div class="ph" style="height:110px;"><img src="photos/foto2.jpg?v=3" alt=""></div>
+          <div class="cap">watching him on jail times for the<br>first time</div>
+        </div>
+
+        <div class="pol no-cap" style="left:16px; top:442px; width:104px; transform:rotate(-6deg);">
+          <div class="ph" style="height:130px;"><img src="photos/foto3.jpg?v=3" alt=""></div>
+        </div>
+        <div class="pol no-cap" style="left:122px; top:418px; width:102px; transform:rotate(3deg);">
+          <div class="ph" style="height:120px;"><img src="photos/foto4.jpg?v=3" alt=""></div>
+        </div>
+        <div class="album-note" style="left:228px; top:450px; width:125px;">Escaping my<br>partner in jail<br>is my love<br>language UwU</div>
+
+        <div class="pol" style="left:28px; top:595px; width:116px; transform:rotate(7deg);">
+          <div class="ph" style="height:115px;"><img src="photos/foto5.jpg?v=3" alt=""></div>
+          <div class="cap">moon gazing</div>
+        </div>
+
+        <div class="pol" style="left:166px; top:585px; width:175px; transform:rotate(0deg); padding-bottom: 22px;">
+          <div class="ph" style="height:105px;"><img src="photos/foto6.jpg?v=3" alt=""></div>
+          <div class="ph" style="height:105px;"><img src="photos/foto7.jpg?v=3" alt=""></div>
+          <div class="cap">is my partner still human?</div>
+        </div>
+
+        <div class="pol" style="left:30px; top:765px; width:114px; transform:rotate(-3deg);">
+          <div class="ph" style="height:105px;"><img src="photos/foto8.jpg?v=3" alt=""></div>
+          <div class="cap" style="font-size: 0.72rem; letter-spacing: 2px;">🔥🔥🔥</div>
+        </div>
+
+        <div class="pol" style="left:12px; top:915px; width:195px; transform:rotate(7.5deg);">
+          <div class="ph" style="height:115px;"><img src="photos/foto9.jpg?v=3" alt=""></div>
+          <div class="cap" style="font-size: 0.52rem;">hot fit for my partner</div>
+        </div>
+
+        <div class="pol wide-cap" style="left:142px; top:1045px; width:202px; transform:rotate(-4deg);">
+          <div class="ph" style="height:112px;"><img src="photos/foto10.jpg?v=3" alt=""></div>
+          <div class="cap">watching people suffering inside<br>the maze lmao</div>
+        </div>
+
+        <div class="pol" style="left:18px; top:1180px; width:198px; transform:rotate(6deg);">
+          <div class="ph" style="height:112px;"><img src="photos/foto11.jpg?v=3" alt=""></div>
+          <div class="cap">lantern festival date!!</div>
+        </div>
+
+        <div class="pol wide-cap" style="left:32px; top:1315px; width:295px; transform:rotate(-1.5deg);">
+          <div class="ph" style="height:128px;"><img src="photos/foto12.jpg?v=3" alt=""></div>
+          <div class="cap" style="font-size: 0.55rem; letter-spacing: 0.5px;">HAVE I MENTION ABOUT HOW<br>STUNNING MY PARTNER IS??!!</div>
+        </div>
+
+        <div class="pol wide-cap" style="left:24px; top:1495px; width:145px; transform:rotate(-2deg);">
+          <div class="ph" style="height:126px;"><img src="photos/foto13.jpg?v=3" alt=""></div>
+          <div class="cap">he can be a bit weird,<br>but he's still my darling</div>
+        </div>
+        <div class="pol wide-cap" style="left:185px; top:1490px; width:148px; transform:rotate(2deg);">
+          <div class="ph" style="height:126px;"><img src="photos/foto14.jpg?v=3" alt=""></div>
+          <div class="cap">...yeah, I don't know how I<br>should react.</div>
+        </div>
+      </div>
+      <div class="text-center" style="padding: 15px 0 45px;">
+        <button class="btn-home-back" onclick="goTo('screen-home')" style="background: #ece7df; color: #1a1a1a; border: none; border-radius: 999px; padding: 10px 36px; font-size: 0.92rem; font-family: 'Libre Baskerville', serif; box-shadow: 0 4px 10px rgba(0,0,0,0.25); cursor: pointer;">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SCREEN: MUSIC 1 (iPod) ═══════ -->
+  <div class="screen screen-light" id="screen-music1" style="gap: 5px;">
+    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.35; color:#222; margin-top: 15px; margin-bottom: 15px;">Some Songs Make Me<br>Think Of You Every Time I<br>Hear Them</h2>
+    
+    <img src="red_ipod.png" alt="iPod with Earphones" class="float" style="width: 250px; max-width: 90%; height: auto; margin: 15px 0 25px 0;" />
+    
+    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 20px;">Do You Want To Hear It,<br>Dear?</h2>
+    
+    <button class="btn-primary lb" style="font-weight:400 !important; font-size: 0.95rem; padding: 12px 34px;" onclick="goTo('screen-music2')">See Playlist</button>
+  </div>
+
+  <!-- ═══════ SCREEN: MUSIC 2 (Playlist) ═══════ -->
+  <div class="screen screen-light" id="screen-music2" style="padding: 0; display: flex; flex-direction: column; overflow: hidden; justify-content: flex-start;">
+    <!-- Playlist Header -->
+    <div style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 25px 20px 15px 20px; flex-shrink: 0;">
+      <img src="red_flower_cover.jpg" alt="Cover" style="width: 105px; height: 105px; border-radius: 18px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.15);" />
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-bottom: 4px;">Playlist • 5 songs • 2026</span>
+        <h2 class="lb" style="font-size: 1.35rem; color: #1a1a1a; margin-bottom: 4px; line-height: 1.2;">To My Dearest</h2>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #333; text-decoration: underline; cursor: pointer;">Mixed Artists</span>
+      </div>
+    </div>
+
+    <!-- Section Heading -->
+    <div style="width: 100%; padding: 5px 20px 10px 20px; flex-shrink: 0;">
+      <h3 class="lb" style="font-size: 1.25rem; color: #1a1a1a;">Top Songs</h3>
+    </div>
+
+    <!-- Song List (Scrollable) -->
+    <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 20px 10px 20px; display: flex; flex-direction: column; gap: 14px;">
+      <!-- Song 1 (Playing) -->
+      <div class="song-item active" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <div class="eq-bars"><span></span><span></span><span></span></div>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Kita Usahakan Rumah Itu</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Sal Priadi</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 2 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Terbuang Dalam Waktu</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Barasuara</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 3 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Jodoh Pasti Bertemu</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Afgan</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 4 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Kupu-Kupu</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 5 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Cinta Terakhir</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Ari Lasso</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 6 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Dari Mata</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Jaz</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 7 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Cintanya Aku</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 8 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Aku Cinta Dia</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Gita Gutawa</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Song 9 -->
+      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div style="flex: 1; padding: 0 12px;">
+          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Teman Hidup</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tulus</div>
+        </div>
+        <div style="opacity: 0.7; padding-right: 4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Button Footer -->
+    <div style="padding: 10px 0 18px 0; text-align: center; width: 100%; flex-shrink: 0; background: #e6dfd3;">
+      <button class="btn-primary" style="padding: 10px 32px; font-size: 0.85rem;" onclick="goTo('screen-home')">Back</button>
+    </div>
+  </div>
+  
+  <!-- ═══════ SCREEN: LETTER 1 ═══════ -->
+  <div class="screen screen-light" id="screen-letter1" style="gap: 5px;">
+    <div class="confetti-container" id="confetti-letter1"></div>
+    <h2 class="text-center lb" style="font-size:1.2rem; color:#222;">Tweet tweet!</h2>
+    <h2 class="text-center lb" style="font-size:1.35rem; line-height:1.3; color:#222; margin-top:15px; margin-bottom: 25px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
+    
+    <img src="bird_letter_transparent.png" alt="Bird Letter" style="width: 280px; max-width: 100%; height: auto; animation: heartFloat 3s ease-in-out infinite; margin-bottom: 35px;" />
+    
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.3; color:#222;">Aren't You Curious To<br>See What's Inside?</h2>
+    <button class="btn-primary lb" style="margin-top:18px; font-weight:400 !important;" onclick="goTo('screen-letter2')">Take A Peek</button>
+  </div>
+
+  <!-- ═══════ SCREEN: LETTER 2 ═══════ -->
+  <div class="screen screen-red" id="screen-letter2" style="padding: 20px 0; gap: 18px; background: #a41c27;">
+    <div style="background: #4a191d; border-radius: 22px; width: 86%; flex: 1; min-height: 0; padding: 22px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column;">
+      <div class="letter-body" style="overflow-y: auto; padding-right: 6px; flex: 1;">
+        <h2 class="lb" style="color: #e6dfd3; font-size: 1.1rem; font-weight: 400 !important; margin-bottom: 14px;">To my dearest partner,</h2>
+        
+        <p>If you're reading this, then I guess the little website I made for our 100-day anniversary is working properly. Hehehe.</p>
+        
+        <p>For some people, 100 days might not seem like a long time, but so many things can happen within that time.</p>
+        
+        <p>Honestly, when we first formed a bond, I never expected we'd make it this far. After what happened with my previous partnerships, I had already prepared myself for the possibility that you might suddenly stop playing the game or even sever our bond because you didn't like my personality.</p>
+        
+        <p>Yet somehow... you're still here with me.</p>
+        
+        <p>I still remember how awkward we were at the beginning. You were always the one who greeted me first and kept trying to find something for us to talk about. And hey, you can't really blame me for being so quiet, okay?! Before we became partners, we're practically strangers! We had only known each other for a day, before you suddenly offered to become my partner. Of course I was still shy and trying to behave myself during the early days of our partnership QAQ</p>
+        
+        <p>Still, I'm really glad you approached me back then. If you hadn't, maybe we'd only be friends or perhaps, we would've never met at all.</p>
+        
+        <p>I know I can be childish, stubborn, and a little selfish sometimes, but you've always been so patient with all my little antics. You're such a kind person, and I'm the luckiest person in the world to be able to call you my partner.</p>
+        
+        <p>I hope we can stay together for a much, much longer time. Because, just like I told you before, even though our partnership only exist in-game, I'll always treat you with the sincerity and care that a partner deserves.</p>
+        
+        <p>And lastly, happy birthday, dear. May every day bring you more happiness, love, and wonderful memories 🩷</p>
+        
+        <p style="color: #e6dfd3; font-family: 'Nunito', sans-serif; font-size: 0.8rem; line-height: 1.5; margin-bottom: 25px;">I'm really happy that you were born into this world. And out of all the billions of people in this world, I'm glad that fate brought the two of us together.</p>
+        
+        <h2 class="lb" style="color: #e6dfd3; font-size: 1.05rem; font-weight: 400 !important; line-height: 1.3; margin-top: 10px;">From your beloved,<br>&nbsp;Vlianty</h2>
+      </div>
+    </div>
+    <button class="btn-white" onclick="goTo('screen-home')" style="color: #222;">Back</button>
+  </div>
+
+</div>
+
+<script>
+  // Build 5 opened-gift screens (ganti gambar: gifts/gift1.png ... gift5.png)
+  (function buildGiftScreens() {
+    const host = document.getElementById('gift-screens');
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      html += `
+  <div class="screen screen-light gift-open" id="screen-gift${i}">
+    <div class="gift-stage">
+      <img class="gift-lid" src="gifts/box_lid.png?v=3" alt="Gift lid">
+      <img class="gift-pic" id="gift-pic-${i}" src="gifts/gift${i}.png?v=3" alt="Gift ${i}">
+      <img class="gift-base" src="gifts/box_open.png?v=3" alt="Opened gift box">
+    </div>
+    <button class="btn-back-outline" onclick="goTo('screen-gift')">Back</button>
+  </div>`;
+    }
+    host.outerHTML = html;
+  })();
+
+  const SECRET = '100125';
+  let pin = '';
+
+  function pressNum(n) {
+    if (pin.length >= 6) return;
+    pin += n;
+    renderDots();
+    if (pin.length === 6) setTimeout(checkPin, 180);
+  }
+
+  function deleteLast() {
+    pin = pin.slice(0, -1);
+    renderDots();
+    clearErr();
+  }
+
+  function renderDots() {
+    for (let i = 0; i < 6; i++)
+      document.getElementById(`d${i}`).classList.toggle('filled', i < pin.length);
+  }
+
+  function checkPin() {
+    if (pin === SECRET || pin === '110125' || pin === '100125') {
+      goTo('screen-welcome');
+      pin = '';
+      renderDots();
+      clearErr();
+    } else {
+      const pad = document.getElementById('numpad');
+      pad.classList.add('shake');
+      setTimeout(() => pad.classList.remove('shake'), 460);
+      document.getElementById('pin-error').textContent = 'Wrong code, try again! 🐾';
+      pin = '';
+      renderDots();
+    }
+  }
+
+  function clearErr() { document.getElementById('pin-error').textContent = ''; }
+
+  let current = 'screen-pass';
+
+  function goTo(id) {
+    const prev = document.getElementById(current);
+    const next = document.getElementById(id);
+
+    prev.classList.add('exit-left');
+    prev.classList.remove('active');
+    setTimeout(() => prev.classList.remove('exit-left'), 450);
+
+    next.classList.add('active');
+    current = id;
+
+    if (id === 'screen-cake') spawnConfetti('confetti-cake');
+    if (id === 'screen-cake1') spawnConfetti('confetti-cake1');
+    if (id === 'screen-flower') spawnConfetti('confetti-flower');
+    if (id === 'screen-letter1') spawnConfetti('confetti-letter1');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const rawHash = window.location.hash.replace('#', '');
+    const [hash, query] = rawHash.split('?');
+    const scrollY = parseInt(new URLSearchParams(query).get('scroll') || '0');
+    if (hash && document.getElementById(hash)) {
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active', 'exit-left');
+        s.style.transition = 'none';
+      });
+      const target = document.getElementById(hash);
+      target.classList.add('active');
+      target.style.transform = 'none';
+      target.style.opacity = '1';
+      current = hash;
+      if (scrollY > 0) {
+        const scroller = target.querySelector('.album-scroll') || target;
+        scroller.scrollTop = scrollY;
+      }
+      setTimeout(() => {
+        document.querySelectorAll('.screen').forEach(s => s.style.transition = '');
+      }, 50);
+    }
+  });
+
+  function spawnConfetti(cid) {
+    const c = document.getElementById(cid);
+    c.innerHTML = '';
+    const cols = ['#a41c27','#ff6b9d','#ffb3c1','#ffffff','#ffd6e0','#c0392b','#f8a5c2','#ffe066'];
+    for (let i = 0; i < 45; i++) {
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.background = cols[Math.floor(Math.random() * cols.length)];
+      p.style.width  = (Math.random() * 7 + 5) + 'px';
+      p.style.height = (Math.random() * 7 + 5) + 'px';
+      p.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+      p.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+      p.style.animationDelay   = (Math.random() * 2.5) + 's';
+      c.appendChild(p);
+    }
+  }
+  function togglePlay(item) {
+    const playIconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>';
+    const eqBarsHtml = '<div class="eq-bars"><span></span><span></span><span></span></div>';
+    
+    const wasActive = item.classList.contains('active');
+    document.querySelectorAll('.song-item').forEach(el => {
+      el.classList.remove('active');
+      el.querySelector('.song-icon').innerHTML = playIconSvg;
+    });
+
+    if (!wasActive) {
+      item.classList.add('active');
+      item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+    }
+  }
+</script>
+</body>
+</html>
