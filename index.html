@@ -77,12 +77,21 @@
       100% { height: 18px; }
     }
     .song-item {
-      padding: 5px 6px;
+      padding: 6px 8px;
       border-radius: 12px;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .song-item:hover {
+      background: rgba(164, 28, 39, 0.05);
     }
     .song-item:active {
       background: rgba(0,0,0,0.06);
+    }
+    .song-item.active {
+      background: rgba(164, 28, 39, 0.1);
+    }
+    .song-item.active .song-icon {
+      background: #a41c27 !important;
     }
   </style>
   <style>
@@ -751,10 +760,10 @@
 
     <!-- Song List (Scrollable) -->
     <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 20px 10px 20px; display: flex; flex-direction: column; gap: 14px;">
-      <!-- Song 1 (Playing) -->
-      <div class="song-item active" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <!-- Song 1 -->
+      <div class="song-item" data-src="music/song1.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <div class="eq-bars"><span></span><span></span><span></span></div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px;">
           <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Kita Usahakan Rumah Itu</div>
@@ -773,7 +782,7 @@
       </div>
 
       <!-- Song 2 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song2.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -794,7 +803,7 @@
       </div>
 
       <!-- Song 3 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song3.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -815,7 +824,7 @@
       </div>
 
       <!-- Song 4 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song4.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -836,7 +845,7 @@
       </div>
 
       <!-- Song 5 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song5.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -857,7 +866,7 @@
       </div>
 
       <!-- Song 6 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song6.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -878,7 +887,7 @@
       </div>
 
       <!-- Song 7 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song7.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -899,7 +908,7 @@
       </div>
 
       <!-- Song 8 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song8.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -920,7 +929,7 @@
       </div>
 
       <!-- Song 9 -->
-      <div class="song-item" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+      <div class="song-item" data-src="music/song9.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
         <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
@@ -1111,21 +1120,64 @@
       c.appendChild(p);
     }
   }
+  const audioPlayer = new Audio();
+  let currentPlayingItem = null;
+  const playIconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>';
+  const eqBarsHtml = '<div class="eq-bars"><span></span><span></span><span></span></div>';
+
   function togglePlay(item) {
-    const playIconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>';
-    const eqBarsHtml = '<div class="eq-bars"><span></span><span></span><span></span></div>';
-    
-    const wasActive = item.classList.contains('active');
+    const src = item.getAttribute('data-src');
+
+    // Clicked the currently playing / active song
+    if (currentPlayingItem === item) {
+      if (!audioPlayer.paused) {
+        audioPlayer.pause();
+        item.classList.remove('active');
+        item.querySelector('.song-icon').innerHTML = playIconSvg;
+      } else {
+        audioPlayer.play().catch(e => console.log('Playback error:', e));
+        item.classList.add('active');
+        item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+      }
+      return;
+    }
+
+    // New song selected: reset previously active song
     document.querySelectorAll('.song-item').forEach(el => {
       el.classList.remove('active');
       el.querySelector('.song-icon').innerHTML = playIconSvg;
     });
 
-    if (!wasActive) {
-      item.classList.add('active');
-      item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+    if (src) {
+      audioPlayer.src = src;
+      audioPlayer.play().then(() => {
+        item.classList.add('active');
+        item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+        currentPlayingItem = item;
+      }).catch(err => {
+        console.log('Audio playback error:', err);
+        item.classList.add('active');
+        item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+        currentPlayingItem = item;
+      });
     }
   }
+
+  audioPlayer.addEventListener('ended', () => {
+    if (currentPlayingItem) {
+      let next = currentPlayingItem.nextElementSibling;
+      while (next && !next.classList.contains('song-item')) {
+        next = next.nextElementSibling;
+      }
+      if (next && next.classList.contains('song-item')) {
+        togglePlay(next);
+      } else {
+        currentPlayingItem.classList.remove('active');
+        currentPlayingItem.querySelector('.song-icon').innerHTML = playIconSvg;
+        currentPlayingItem = null;
+      }
+    }
+  });
 </script>
 </body>
 </html>
