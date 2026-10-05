@@ -76,10 +76,25 @@
       0% { height: 4px; }
       100% { height: 18px; }
     }
+    .song-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-radius: 14px;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+    }
+    .song-card.playing {
+      background: rgba(164, 28, 39, 0.05);
+      border-radius: 14px;
+    }
     .song-item {
       padding: 6px 8px;
       border-radius: 12px;
       transition: background 0.2s ease, transform 0.15s ease;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
     }
     .song-item:hover {
       background: rgba(164, 28, 39, 0.05);
@@ -92,6 +107,191 @@
     }
     .song-item.active .song-icon {
       background: #a41c27 !important;
+    }
+
+    /* ── Lirik Button & Drawer ── */
+    .btn-lyric-toggle {
+      background: #f4eee6;
+      color: #8b1821;
+      border: 1px solid rgba(164, 28, 39, 0.25);
+      border-radius: 16px;
+      padding: 5px 10px;
+      font-size: 0.68rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      outline: none;
+    }
+    .btn-lyric-toggle:hover {
+      background: #a41c27;
+      color: #ffffff;
+      border-color: #a41c27;
+      transform: scale(1.04);
+    }
+    .btn-lyric-toggle.active {
+      background: #a41c27;
+      color: #ffffff;
+      border-color: #a41c27;
+    }
+
+    .lyrics-drawer {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
+      width: 100%;
+    }
+    .lyrics-drawer.open {
+      max-height: 320px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+    .lyrics-card {
+      background: #ffffff;
+      border: 1px solid rgba(164, 28, 39, 0.18);
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    .lyrics-quote-mark {
+      position: absolute;
+      top: 2px;
+      right: 12px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      line-height: 1;
+      color: rgba(164, 28, 39, 0.15);
+      pointer-events: none;
+    }
+    .lyrics-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px dashed rgba(164, 28, 39, 0.2);
+    }
+    .lyrics-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.64rem;
+      font-weight: 700;
+      color: #a41c27;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-fullscreen-lyric {
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color 0.15s ease;
+    }
+    .btn-fullscreen-lyric:hover {
+      color: #a41c27;
+      text-decoration: underline;
+    }
+    .lyrics-text {
+      max-height: 150px;
+      overflow-y: auto;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #2b2b2b;
+      white-space: pre-line;
+      padding-right: 4px;
+      text-align: center;
+      -webkit-overflow-scrolling: touch;
+    }
+    .lyrics-text::-webkit-scrollbar {
+      width: 4px;
+    }
+    .lyrics-text::-webkit-scrollbar-thumb {
+      background: rgba(164, 28, 39, 0.25);
+      border-radius: 4px;
+    }
+
+    /* ── Fullscreen Lyrics Modal ── */
+    .lyrics-modal {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lyrics-modal.active {
+      pointer-events: all;
+      opacity: 1;
+    }
+    .lyrics-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+    }
+    .lyrics-modal-panel {
+      position: relative;
+      background: #fdfaf6;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      padding: 20px 22px 28px;
+      max-height: 82%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .lyrics-modal.active .lyrics-modal-panel {
+      transform: translateY(0);
+    }
+    .lyrics-modal-handle {
+      width: 42px;
+      height: 4px;
+      background: #d4cdc3;
+      border-radius: 4px;
+      margin: 0 auto 14px auto;
+    }
+    .lyrics-modal-scroll {
+      flex: 1;
+      overflow-y: auto;
+      white-space: pre-line;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: #262626;
+      text-align: center;
+      padding: 10px 8px 20px 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .lyrics-modal-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .lyrics-modal-scroll::-webkit-scrollbar-thumb {
+      background: rgba(164, 28, 39, 0.3);
+      border-radius: 4px;
     }
   </style>
   <style>
@@ -747,7 +947,7 @@
     <div style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 25px 20px 15px 20px; flex-shrink: 0;">
       <img src="red_flower_cover.jpg" alt="Cover" style="width: 105px; height: 105px; border-radius: 18px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.15);" />
       <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-bottom: 4px;">Playlist • 5 songs • 2026</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-bottom: 4px;">Playlist • 9 songs • 2026</span>
         <h2 class="lb" style="font-size: 1.35rem; color: #1a1a1a; margin-bottom: 4px; line-height: 1.2;">To My Dearest</h2>
         <span style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #333; text-decoration: underline; cursor: pointer;">Mixed Artists</span>
       </div>
@@ -759,193 +959,453 @@
     </div>
 
     <!-- Song List (Scrollable) -->
-    <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 20px 10px 20px; display: flex; flex-direction: column; gap: 14px;">
+    <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 20px 10px 20px; display: flex; flex-direction: column; gap: 12px;">
       <!-- Song 1 -->
-      <div class="song-item" data-src="music/song1.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-1">
+        <div class="song-item" data-id="1" data-src="music/song1.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Kita Usahakan Rumah Itu</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Sal Priadi</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-1" onclick="toggleLyrics(event, 1)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Kita Usahakan Rumah Itu</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Sal Priadi</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-1">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 1)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Kita usahakan rumah itu
+Dari depan akan tampak sederhana
+Tapi kebunnya luas
+Tanamannya mewah, megah
+
+Kita usahakan rumah itu
+Dari depan akan tampak sederhana
+Tapi dibuat kuat
+Dirancang muat, lega
+
+Urusan perabotan dan wangi-wangian
+Kuserahkan pada s'leramu yang lebih maju
+Tapi tata ruang aku ikut pertimbangkan
+Kar'na kalau nanti kita punya kesibukan
+
+Malam tetap kumpul di meja panjang
+Ruang makan kita
+Berbincang tentang hari yang panjang
+
+Kamu boleh keliling dunia dan
+Temukan banyak tempat-tempat tuk singgah sementara
+Kamu boleh namai itu rumah
+Selama ada mereka yang kamu cinta di dalamnya
+Kita usahakan rumah itu</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 2 -->
-      <div class="song-item" data-src="music/song2.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-2">
+        <div class="song-item" data-id="2" data-src="music/song2.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Terbuang Dalam Waktu</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Barasuara</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-2" onclick="toggleLyrics(event, 2)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Terbuang Dalam Waktu</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Barasuara</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-2">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 2)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Teringat seru suaramu
+Menepis keraguan
+Namun dewasa mengubah
+Cara pandang dan keikhlasan
+Bersaut dan bergulat
+Terperai-perai menghilang
+
+Perih yang terasa
+Sakit yang tak sirna
+Harapan akankah ada?
+Berputar arah
+
+Angan tenggelam dalam kabut dan amarah
+Luka terkuak dan menggebu tanpa arah
+Tangis yang terbendung
+Terbuang dalam waktu yang meluruh
+
+Melihatmu bersemi dan bermekaran
+Tawa candamu berikan kekuatan
+Sisa hariku, pagi berganti waktu
+Memelukmu
+
+Kita kan tua dan kehilangan pegangan
+Lihat senyummu memberikan kekuatan
+Sisa nafasku, cinta tak kenal waktu
+Menjagamu</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 3 -->
-      <div class="song-item" data-src="music/song3.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-3">
+        <div class="song-item" data-id="3" data-src="music/song3.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jodoh Pasti Bertemu</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Afgan</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-3" onclick="toggleLyrics(event, 3)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Jodoh Pasti Bertemu</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Afgan</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-3">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 3)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Andai engkau tahu betapa ku mencinta
+Selalu menjadikanmu isi dalam doaku
+Ku tahu tak mudah menjadi yang kau pinta
+Ku pasrahkan hatiku, takdir kan menjawabnya
+
+Jika aku bukan jalanmu
+Ku berhenti mengharapkanmu
+Jika aku memang tercipta untukmu
+Ku kan memilikimu, jodoh pasti bertemu
+
+Andai engkau tahu betapa ku mencinta
+Ku pasrahkan hatiku, takdir kan menjawabnya
+
+Jika aku bukan jalanmu
+Ku berhenti mengharapkanmu
+Jika aku memang tercipta untukmu
+Ku kan memilikimu, jodoh pasti bertemu</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 4 -->
-      <div class="song-item" data-src="music/song4.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-4">
+        <div class="song-item" data-id="4" data-src="music/song4.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Kupu-Kupu</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-4" onclick="toggleLyrics(event, 4)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Kupu-Kupu</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-4">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 4)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Betapa mudahnya kau buat pipi merona
+Jantungku terpompa setiap kita berjumpa
+Tak pernah kurasa, tak berdaya tanpa bual kata-kata
+Hatiku terbaca hatimulah yang kupuja
+
+Wahai cinta beri pertanda
+Dengar kupu-kupu yang bicara
+Bisingkan dada melantunkan nada asmara
+
+Andai cinta setangkai bunga
+Takkan buat kau layu dan kecewa
+Kan kujaga binar hatinya
+
+Betapa murahnya kau buat hati merana
+Sesaat tak jumpa jantungku hilang irama
+Tak pernah kurasa, tak berdaya tanpa bual kata-kata
+Hatiku terbaca hatimulah yang kupuja
+
+Wahai cinta beri pertanda
+Dengar kupu-kupu yang bicara
+Bisingkan dada melantunkan nada asmara
+
+Jangan hentikan kepak sayapmu
+Sintas hinggapi permai hatiku
+Jaga bara kau jadi apiku
+Sinyal menyala di radar hatiku</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 5 -->
-      <div class="song-item" data-src="music/song5.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-5">
+        <div class="song-item" data-id="5" data-src="music/song5.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cinta Terakhir</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Ari Lasso</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-5" onclick="toggleLyrics(event, 5)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Cinta Terakhir</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Ari Lasso</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-5">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 5)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Sedalam apakah rasa cintaku padamu
+Takkan mampu untuk kuungkapkan semua
+Kini usai sudah segala penantian panjangku
+Setelah temukan dirimu duhai kekasihku
+
+Hanya padamu kupercayakan
+Seluruh jiwa dan ragaku
+Hingga di ujung nafasku
+Kan kujaga cinta ini
+
+Mungkinkah kau yang 'kan menjadi
+Cinta terakhir dalam hidupku?
+Tempat berlabuh sisa waktuku
+Dan takkan ada cinta yang lain</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 6 -->
-      <div class="song-item" data-src="music/song6.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-6">
+        <div class="song-item" data-id="6" data-src="music/song6.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dari Mata</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Jaz</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-6" onclick="toggleLyrics(event, 6)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Dari Mata</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Jaz</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-6">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 6)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Matamu melemahkanku
+Saat pertama kali kulihatmu
+Dan jujur, ku tak pernah merasa
+Ku tak pernah merasa begini
+
+Oh, mungkin inikah cinta pandangan yang pertama?
+Kar'na apa yang kurasa ini tak biasa
+Jika benar ini cinta, mulai dari mana?
+Oh, dari mana?
+
+Dari matamu, matamu, ku mulai jatuh cinta
+Ku melihat, melihat ada bayangnya
+Dari mata, kau buatku jatuh
+Jatuh, terus jatuh ke hati
+
+Dari matamu, matamu, ku mulai jatuh cinta
+Ku melihat, melihat ada bayangnya
+Dari mata, kau buatku jatuh
+Jatuh, terus jatuh ke hati</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 7 -->
-      <div class="song-item" data-src="music/song7.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-7">
+        <div class="song-item" data-id="7" data-src="music/song7.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cintanya Aku</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-7" onclick="toggleLyrics(event, 7)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Cintanya Aku</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-7">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 7)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Tergetar aku tepat di hadapanmu
+Debar jantungku berdetak saat kugenggam tanganmu
+Beruntung aku kini dapatkan cintamu
+Yang tercantik di hatiku sejak awal ku bertemu
+
+Janji padaku, jangan kau lukai hati
+Seperti kisah yang lalu
+
+Kau bukan cinta pertamaku
+Namun aku berharap
+Mulai hari ini, saat ini
+Engkau cintanya aku
+
+Yang kurasakan denganmu semua berbeda
+Kekasih yang baik hati kini ada di sampingku
+Janji padaku, jangan ada lagi
+Hati yang lain selain aku
+
+Kau bukan cinta pertamaku
+Namun aku berharap
+Mulai hari ini, saat ini
+Engkau cintanya aku
+Satu untuk selamanya</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 8 -->
-      <div class="song-item" data-src="music/song8.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-8">
+        <div class="song-item" data-id="8" data-src="music/song8.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Aku Cinta Dia</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Gita Gutawa</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-8" onclick="toggleLyrics(event, 8)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Aku Cinta Dia</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Gita Gutawa</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-8">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 8)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Di saat kau berjalan
+Di muka rumahku, penuh gaya
+Tersita pandanganku hingga ku terpesona
+Siapakah dirimu hatiku ingin tahu
+Segera
+
+Hati yang berbunga
+Pada pandangan pertama
+Oh Tuhan tolonglah
+Aku cinta, ku cinta dia
+
+Di manakah rumahmu
+Siapakah namamu, sebutkanlah
+Kuingin berkenalan, terimalah salamku
+Gayamu dan wajahmu, terbawa dalam mimpi
+Diriku mabuk asmara
+
+Hati yang berbunga
+Pada pandangan pertama
+Oh Tuhan tolonglah
+Aku cinta, ku cinta dia</div>
+          </div>
         </div>
       </div>
 
       <!-- Song 9 -->
-      <div class="song-item" data-src="music/song9.m4a" onclick="togglePlay(this)" style="display: flex; align-items: center; width: 100%; cursor: pointer;">
-        <div class="song-icon" style="width: 48px; height: 48px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+      <div class="song-card" id="song-card-9">
+        <div class="song-item" data-id="9" data-src="music/song9.m4a" onclick="togglePlay(this)">
+          <div class="song-icon" style="width: 46px; height: 46px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div style="flex: 1; padding: 0 10px; min-width: 0;">
+            <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Teman Hidup</div>
+            <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tulus</div>
+          </div>
+          <button type="button" class="btn-lyric-toggle" id="btn-lyric-9" onclick="toggleLyrics(event, 9)" title="Lihat Lirik">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Lirik</span>
+          </button>
         </div>
-        <div style="flex: 1; padding: 0 12px;">
-          <div class="lb" style="font-size: 0.88rem; color: #1a1a1a; line-height: 1.25;">Teman Hidup</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tulus</div>
-        </div>
-        <div style="opacity: 0.7; padding-right: 4px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <circle cx="4" cy="6" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <circle cx="4" cy="12" r="1.5" fill="#222"></circle>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <circle cx="4" cy="18" r="1.5" fill="#222"></circle>
-          </svg>
+        <div class="lyrics-drawer" id="lyrics-drawer-9">
+          <div class="lyrics-card">
+            <div class="lyrics-quote-mark">“</div>
+            <div class="lyrics-header">
+              <span class="lyrics-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Lirik Lagu
+              </span>
+              <button type="button" class="btn-fullscreen-lyric" onclick="openFullLyrics(event, 9)">Perbesar ⤢</button>
+            </div>
+            <div class="lyrics-text">Dia indah meretas gundah
+Dia yang selama ini ku nanti
+Membawa sejuk, memanja rasa
+Basuh luka lara
+
+Dia manis menata hati
+Menyulam kembali pecahan jiwa
+Membawa damai meredam resah
+Hapus duka lara
+
+Tetaplah bersamaku jadi teman hidupku
+Berdua kita hadapi dunia
+Kau milikku, ku milikmu
+Kita satukan tuju
+
+Bersama arungi samudra cinta
+Menua berdua
+Tetaplah bersamaku jadi teman hidupku</div>
+          </div>
         </div>
       </div>
     </div>
@@ -998,6 +1458,25 @@
       </div>
     </div>
     <button class="btn-white" onclick="goTo('screen-home')" style="color: #222;">Back</button>
+  </div>
+
+  <!-- ═══════ FULLSCREEN LYRICS MODAL ═══════ -->
+  <div id="lyrics-modal" class="lyrics-modal" onclick="closeLyricsModal()">
+    <div class="lyrics-modal-backdrop"></div>
+    <div class="lyrics-modal-panel" onclick="event.stopPropagation()">
+      <div class="lyrics-modal-handle"></div>
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(164, 28, 39, 0.15); padding-bottom: 10px;">
+        <div style="flex: 1; padding-right: 12px;">
+          <div id="modal-song-title" class="lb" style="font-size: 1.05rem; color: #a41c27; line-height: 1.25;"></div>
+          <div id="modal-song-artist" style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #666; margin-top: 3px;"></div>
+        </div>
+        <button onclick="closeLyricsModal()" class="btn-modal-close" style="background: rgba(0,0,0,0.06); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #444; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div id="modal-lyrics-text" class="lyrics-modal-scroll"></div>
+      <div style="text-align: center; padding-top: 10px;">
+        <button class="btn-primary" style="padding: 8px 26px; font-size: 0.8rem;" onclick="closeLyricsModal()">Tutup Lirik</button>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -1127,25 +1606,33 @@
 
   function togglePlay(item) {
     const src = item.getAttribute('data-src');
+    const songId = item.getAttribute('data-id');
 
-    // Clicked the currently playing / active song
+    // Clicked the currently playing / active song: pause or resume
     if (currentPlayingItem === item) {
       if (!audioPlayer.paused) {
         audioPlayer.pause();
         item.classList.remove('active');
         item.querySelector('.song-icon').innerHTML = playIconSvg;
+        const parentCard = item.closest('.song-card');
+        if (parentCard) parentCard.classList.remove('playing');
       } else {
         audioPlayer.play().catch(e => console.log('Playback error:', e));
         item.classList.add('active');
         item.querySelector('.song-icon').innerHTML = eqBarsHtml;
+        const parentCard = item.closest('.song-card');
+        if (parentCard) parentCard.classList.add('playing');
       }
       return;
     }
 
-    // New song selected: reset previously active song
+    // New song selected: reset other song states
     document.querySelectorAll('.song-item').forEach(el => {
       el.classList.remove('active');
       el.querySelector('.song-icon').innerHTML = playIconSvg;
+    });
+    document.querySelectorAll('.song-card').forEach(card => {
+      card.classList.remove('playing');
     });
 
     if (src) {
@@ -1154,6 +1641,21 @@
         item.classList.add('active');
         item.querySelector('.song-icon').innerHTML = eqBarsHtml;
         currentPlayingItem = item;
+        const parentCard = item.closest('.song-card');
+        if (parentCard) parentCard.classList.add('playing');
+
+        // Automatically open the lyrics drawer for the song that just started playing!
+        if (songId) {
+          const drawer = document.getElementById('lyrics-drawer-' + songId);
+          const btn = document.getElementById('btn-lyric-' + songId);
+          if (drawer && !drawer.classList.contains('open')) {
+            drawer.classList.add('open');
+            if (btn) {
+              btn.classList.add('active');
+              btn.querySelector('span').textContent = 'Tutup';
+            }
+          }
+        }
       }).catch(err => {
         console.log('Audio playback error:', err);
         item.classList.add('active');
@@ -1163,17 +1665,65 @@
     }
   }
 
+  function toggleLyrics(event, id) {
+    if (event) event.stopPropagation();
+    const drawer = document.getElementById('lyrics-drawer-' + id);
+    const btn = document.getElementById('btn-lyric-' + id);
+    if (!drawer) return;
+
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+      if (btn) {
+        btn.classList.remove('active');
+        btn.querySelector('span').textContent = 'Lirik';
+      }
+    } else {
+      drawer.classList.add('open');
+      if (btn) {
+        btn.classList.add('active');
+        btn.querySelector('span').textContent = 'Tutup';
+      }
+    }
+  }
+
+  function openFullLyrics(event, id) {
+    if (event) event.stopPropagation();
+    const card = document.getElementById('song-card-' + id);
+    if (!card) return;
+
+    const titleEl = card.querySelector('.song-item .lb');
+    const artistEl = card.querySelector('.song-item div[style*="font-family: \'Montserrat\'"]');
+    const textEl = card.querySelector('.lyrics-text');
+
+    document.getElementById('modal-song-title').textContent = titleEl ? titleEl.textContent : '';
+    document.getElementById('modal-song-artist').textContent = artistEl ? artistEl.textContent : '';
+    document.getElementById('modal-lyrics-text').textContent = textEl ? textEl.textContent : '';
+
+    const modal = document.getElementById('lyrics-modal');
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeLyricsModal() {
+    const modal = document.getElementById('lyrics-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
   audioPlayer.addEventListener('ended', () => {
     if (currentPlayingItem) {
-      let next = currentPlayingItem.nextElementSibling;
-      while (next && !next.classList.contains('song-item')) {
-        next = next.nextElementSibling;
+      const currentCard = currentPlayingItem.closest('.song-card');
+      let nextCard = currentCard ? currentCard.nextElementSibling : null;
+      while (nextCard && !nextCard.classList.contains('song-card')) {
+        nextCard = nextCard.nextElementSibling;
       }
-      if (next && next.classList.contains('song-item')) {
-        togglePlay(next);
+      if (nextCard) {
+        const nextSongItem = nextCard.querySelector('.song-item');
+        if (nextSongItem) togglePlay(nextSongItem);
       } else {
         currentPlayingItem.classList.remove('active');
         currentPlayingItem.querySelector('.song-icon').innerHTML = playIconSvg;
+        const parentCard = currentPlayingItem.closest('.song-card');
+        if (parentCard) parentCard.classList.remove('playing');
         currentPlayingItem = null;
       }
     }
