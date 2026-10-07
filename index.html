@@ -80,6 +80,24 @@
       100% { height: 18px; }
     }
     /* ── Spotify Playlist & Rows ── */
+    * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .music-list {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    .music-list::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
     .song-item {
       padding: 8px 10px;
       border-radius: 12px;
@@ -232,6 +250,16 @@
       overflow: hidden;
       text-overflow: ellipsis;
       line-height: 1.3;
+    }
+    .sp-track-title-en {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fca5ad;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
     }
     .sp-track-artist {
       font-family: 'Montserrat', sans-serif;
@@ -395,23 +423,43 @@
     .sp-lyrics-lines {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
-    .sp-lyric-line {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 700;
-      line-height: 1.45;
-      color: rgba(255, 255, 255, 0.7);
-      transition: color 0.2s ease, transform 0.2s ease;
+    .sp-lyrics-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
       cursor: default;
     }
-    .sp-lyric-line:hover {
-      color: #ffffff;
+    .sp-lyrics-item:hover {
       transform: translateX(4px);
     }
+    .sp-lyric-orig {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #ffffff;
+      transition: color 0.15s ease;
+    }
+    .sp-lyric-trans {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: rgba(255, 222, 228, 0.76);
+      letter-spacing: 0.1px;
+      transition: color 0.15s ease;
+    }
+    .sp-lyrics-item:hover .sp-lyric-orig {
+      color: #ffe8eb;
+    }
+    .sp-lyrics-item:hover .sp-lyric-trans {
+      color: #ffffff;
+    }
     .sp-lyric-space {
-      height: 10px;
+      height: 12px;
     }
 
     /* ── Spotify Mini Player Bar ── */
@@ -1020,18 +1068,12 @@
   <div id="gift-screens" style="display:contents"></div>
 
   <!-- ═══════ SCREEN: CAKE ═══════ -->
-  <div class="screen screen-light" id="screen-cake">
+  <div class="screen screen-light" id="screen-cake" style="gap: 8px;">
     <div class="confetti-container" id="confetti-cake"></div>
-    <h2 style="color:#a41c27; font-size:1.1rem; margin-bottom:-5px; font-family:'Nunito', sans-serif;">✨ Ta-da! ✨</h2>
-    <h2 class="text-center" style="font-size:1.5rem;">A Special Cake<br>For Today's Star!</h2>
-    
-    <div style="position:relative; margin: 30px 0;">
-      <div style="font-size:8rem; text-align:center; filter:drop-shadow(0 10px 15px rgba(0,0,0,0.2)); line-height:1;">🎂</div>
-      <div style="position:absolute; top: 45%; left:50%; transform:translate(-50%, -50%); background:#a41c27; color:white; padding:6px 16px; border-radius:20px; font-weight:bold; font-size:0.9rem; border:2px solid #fff; white-space:nowrap; font-family:'Playfair Display', serif;">Happy Birthday!</div>
-    </div>
-    
-    <h2 class="text-center" style="font-size:1.3rem;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
-    <button class="btn-primary" style="margin-top:20px;" onclick="goTo('screen-cake1')">Blow the Candle</button>
+    <h2 class="text-center serif" style="font-size:1.5rem; line-height:1.35; color:#222; margin-top:5px; margin-bottom: 5px;">A Special Cake<br>For Today's Star!</h2>
+    <img src="cake_strawberry_transparent.png" alt="A Special Birthday Cake" class="float" style="width:245px; max-width:82%; height:auto; margin: 12px 0 16px 0;" />
+    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.35; color:#222; margin-bottom: 15px;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
+    <button class="btn-primary" onclick="goTo('screen-cake1')">Blow the Candle</button>
   </div>
 
   <!-- ═══════ SCREEN: CAKE 1 ═══════ -->
@@ -1050,10 +1092,6 @@
     <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.3; color:#a41c27; margin-top:5px; margin-bottom: 2px;">💕 Here's A Bouquet Of<br>Flowers For You! 💕</h2>
     <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:220px; max-width:85%; height:auto; margin: 15px 0 12px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
     <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 6px;">Tap The Flowers To<br>Unwrap Your Surprise</h2>
-    <div class="btn-row" style="gap: 14px; margin-top: 10px;">
-      <button class="btn-primary" onclick="goTo('screen-flower1')">Unwrap Surprise</button>
-      <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
-    </div>
   </div>
 
   <!-- ═══════ SCREEN: FLOWER 1 (Reasons) ═══════ -->
@@ -1121,7 +1159,7 @@
   <!-- ═══════ SCREEN: PHOTO 1 ═══════ -->
   <div class="screen screen-light" id="screen-photo1" style="gap: 5px;">
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">These 100 days have given<br>us so many wonderful little<br>moments</h2>
-    <img src="camera_polaroid.jpg" alt="Instant camera and polaroid" class="float" style="width: 300px; max-width: 100%; height: auto; mix-blend-mode: multiply; margin: 30px 0 35px 0;" />
+    <img src="camera_polaroid_transparent.png" alt="Instant camera and polaroid" class="float" style="width: 300px; max-width: 100%; height: auto; margin: 30px 0 35px 0;" />
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">Here are some of the<br>ones I treasure most!</h2>
     <button class="btn-primary lb" style="margin-top:14px; font-weight:400 !important;" onclick="goTo('screen-collage')">Open The Album</button>
   </div>
@@ -1239,10 +1277,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Kita Usahakan Rumah Itu</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Let's Build That Home</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Sal Priadi • 3:13</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 2 -->
@@ -1251,10 +1289,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Terbuang Dalam Waktu</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lost Within Time</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Barasuara • 4:36</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 3 -->
@@ -1263,10 +1301,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jodoh Pasti Bertemu</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Destiny Will Find A Way</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Afgan • 4:06</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 4 -->
@@ -1275,10 +1313,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Kupu-Kupu</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Butterflies</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini • 3:35</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 5 -->
@@ -1287,10 +1325,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cinta Terakhir</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">My Final Love</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Ari Lasso • 4:04</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 6 -->
@@ -1299,10 +1337,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dari Mata</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">From The Eyes To The Heart</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Jaz • 3:42</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 7 -->
@@ -1311,10 +1349,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cintanya Aku</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">My True Love</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini • 3:58</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 8 -->
@@ -1323,10 +1361,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Aku Cinta Dia</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">I Am In Love With Him</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Gita Gutawa • 3:44</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
 
       <!-- Song 9 -->
@@ -1335,43 +1373,30 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Teman Hidup</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lifelong Companion</div>
           <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tulus • 3:52</div>
         </div>
-        <span class="sp-pill-lyrics">Lirik ♫</span>
+        <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
     </div>
 
-    <!-- Spotify Mini Player Bar -->
-    <div id="sp-mini-bar" class="sp-mini-bar" onclick="expandSpotifyPlayer()">
-      <div class="sp-mini-thumb">
-        <img src="red_flower_cover.jpg" alt="" />
-      </div>
-      <div class="sp-mini-info">
-        <div id="sp-mini-title" class="sp-mini-title">Kita Usahakan Rumah Itu</div>
-        <div id="sp-mini-artist" class="sp-mini-artist">Sal Priadi • Ketuk untuk lirik</div>
-      </div>
-      <button type="button" class="sp-mini-play" onclick="event.stopPropagation(); toggleSpPlay();">
-        <svg id="sp-mini-play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-    </div>
 
     <!-- Back Button Footer -->
-    <div style="padding: 6px 0 16px 0; text-align: center; width: 100%; flex-shrink: 0; background: #e6dfd3;">
+    <div style="padding: 6px 0 16px 0; text-align: center; width: 100%; flex-shrink: 0; background: #dcd9d4;">
       <button class="btn-primary" style="padding: 10px 32px; font-size: 0.85rem;" onclick="goTo('screen-home')">Back</button>
     </div>
   </div>
   
   <!-- ═══════ SCREEN: LETTER 1 ═══════ -->
-  <div class="screen screen-light" id="screen-letter1" style="gap: 5px;">
+  <div class="screen screen-light" id="screen-letter1" style="gap: 4px;">
     <div class="confetti-container" id="confetti-letter1"></div>
-    <h2 class="text-center lb" style="font-size:1.2rem; color:#222;">Tweet tweet!</h2>
-    <h2 class="text-center lb" style="font-size:1.35rem; line-height:1.3; color:#222; margin-top:15px; margin-bottom: 25px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
+    <h2 class="text-center lb" style="font-size:1.15rem; color:#222; margin-top: 8px; margin-bottom: 6px;">Tweet tweet!</h2>
+    <h2 class="text-center lb" style="font-size:1.35rem; line-height:1.3; color:#222; margin-bottom: 16px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
     
-    <img src="bird_letter_transparent.png" alt="Bird Letter" style="width: 280px; max-width: 100%; height: auto; animation: heartFloat 3s ease-in-out infinite; margin-bottom: 35px;" />
+    <img src="bird_letter_transparent.png?v=2" alt="Bird Letter" class="float" style="width: 250px; max-width: 82%; height: auto; margin-bottom: 18px;" />
     
-    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.3; color:#222;">Aren't You Curious To<br>See What's Inside?</h2>
-    <button class="btn-primary lb" style="margin-top:18px; font-weight:400 !important;" onclick="goTo('screen-letter2')">Take A Peek</button>
+    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.3; color:#222; margin-bottom: 18px;">Aren't You Curious To<br>See What's Inside?</h2>
+    <button class="btn-primary lb" style="font-weight:400 !important; padding: 10px 28px;" onclick="goTo('screen-letter2')">Take A Peek</button>
   </div>
 
   <!-- ═══════ SCREEN: LETTER 2 ═══════ -->
@@ -1433,6 +1458,7 @@
       <div class="sp-track-row">
         <div class="sp-track-info">
           <div id="sp-track-title" class="sp-track-title">Kita Usahakan Rumah Itu</div>
+          <div id="sp-track-title-en" class="sp-track-title-en">(Let's Build That Home)</div>
           <div id="sp-track-artist" class="sp-track-artist">Sal Priadi</div>
         </div>
         <button class="sp-btn-like" onclick="toggleFavorite(this)">
@@ -1474,7 +1500,7 @@
       <div class="sp-lyrics-card">
         <div class="sp-lyrics-card-header">
           <span class="sp-lyrics-heading">Lyrics</span>
-          <span class="sp-lyrics-badge">♫ Sing Along</span>
+          <span class="sp-lyrics-badge">🌐 ID ⇄ EN Subtitles</span>
         </div>
         <div class="sp-lyrics-lines" id="sp-lyrics-container">
           <!-- Lyrics lines injected dynamically -->
@@ -1607,167 +1633,176 @@
   const songsData = [
     {
       title: "Kita Usahakan Rumah Itu",
+      titleEn: "Let's Build That Home",
       artist: "Sal Priadi",
       duration: "3:13",
       src: "music/song1.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Hei, bagaimana kalau kita usahakan rumah itu?",
-        "Kita usahakan rumah itu...",
-        "Dari depan akan tampak biasa saja",
-        "Tapi di dalamnya ada kita yang saling mencinta",
-        "",
-        "Rumah yang hangat walau hujan badai di luar",
-        "Tempat kita pulang saat lelah mengejar dunia",
-        "Kita sediakan dua cangkir kopi di meja",
-        "Bercerita hingga larut malam tanpa jeda",
-        "",
-        "Hei, bagaimana kalau kita usahakan bersama?",
-        "Menua di teras sambil tersenyum bahagia..."
+        { id: "Hei, bagaimana kalau kita usahakan rumah itu?", en: "Hey, what if we strive to build that home together?" },
+        { id: "Kita usahakan rumah itu...", en: "Let's make that home ours..." },
+        { id: "Dari depan akan tampak biasa saja", en: "From the outside, it might look ordinary" },
+        { id: "Tapi di dalamnya ada kita yang saling mencinta", en: "But inside, there's the two of us deeply in love" },
+        { id: "", en: "" },
+        { id: "Rumah yang hangat walau hujan badai di luar", en: "A warm sanctuary, no matter how hard it storms outside" },
+        { id: "Tempat kita pulang saat lelah mengejar dunia", en: "A haven to return to when tired of chasing the world" },
+        { id: "Kita sediakan dua cangkir kopi di meja", en: "We'll set two cups of warm coffee upon the table" },
+        { id: "Bercerita hingga larut malam tanpa jeda", en: "Sharing our stories endlessly into the late night" },
+        { id: "", en: "" },
+        { id: "Hei, bagaimana kalau kita usahakan bersama?", en: "Hey, what if we strive for it side by side?" },
+        { id: "Menua di teras sambil tersenyum bahagia...", en: "Growing old together on the porch, smiling happily..." }
       ]
     },
     {
       title: "Terbuang Dalam Waktu",
+      titleEn: "Lost Within Time",
       artist: "Barasuara",
       duration: "4:36",
       src: "music/song2.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Biar reda, redam luka di dada...",
-        "Tiap kata, simpan dalam sukma...",
-        "Yang terbuang dalam waktu...",
-        "Biarlah mengalir sendu...",
-        "",
-        "Menanti badai berlalu",
-        "Kusimpan senyum di matamu",
-        "Biar dunia berganti rupa",
-        "Kita tetap satu rasa..."
+        { id: "Biar reda, redam luka di dada...", en: "Let it soothe, easing the ache in our chest..." },
+        { id: "Tiap kata, simpan dalam sukma...", en: "Every spoken word, treasured deep in our soul..." },
+        { id: "Yang terbuang dalam waktu...", en: "All that was once lost in the river of time..." },
+        { id: "Biarlah mengalir sendu...", en: "Let it gently drift away..." },
+        { id: "", en: "" },
+        { id: "Menanti badai berlalu", en: "Waiting for the storm to pass us by" },
+        { id: "Kusimpan senyum di matamu", en: "I keep the warm sparkle of your eyes close" },
+        { id: "Biar dunia berganti rupa", en: "Even if the entire world changes around us" },
+        { id: "Kita tetap satu rasa...", en: "Our hearts will forever beat as one..." }
       ]
     },
     {
       title: "Jodoh Pasti Bertemu",
+      titleEn: "Destiny Will Find A Way",
       artist: "Afgan",
       duration: "4:06",
       src: "music/song3.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Andai ku tahu semua akan begini",
-        "Takkan kubiarkan hatiku terbuai rasa",
-        "Namun jika memang kau takdirku",
-        "Kemana pun kau pergi kita 'kan bersatu...",
-        "",
-        "Karena jodoh pasti bertemu",
-        "Walau terpisah ruang dan waktu",
-        "Tuhan punya rencana indah",
-        "Menyatukan dua hati yang searah..."
+        { id: "Andai ku tahu semua akan begini", en: "If only I knew it would turn out this way" },
+        { id: "Takkan kubiarkan hatiku terbuai rasa", en: "I wouldn't have let my heart fall so deeply" },
+        { id: "Namun jika memang kau takdirku", en: "Yet if you are indeed my destined love" },
+        { id: "Kemana pun kau pergi kita 'kan bersatu...", en: "Wherever you wander, we are bound to unite..." },
+        { id: "", en: "" },
+        { id: "Karena jodoh pasti bertemu", en: "Because soulmates will always find each other" },
+        { id: "Walau terpisah ruang dan waktu", en: "Even across distance and time" },
+        { id: "Tuhan punya rencana indah", en: "Destiny holds a beautiful design" },
+        { id: "Menyatukan dua hati yang searah...", en: "Bringing two guided hearts together..." }
       ]
     },
     {
       title: "Kupu-Kupu",
+      titleEn: "Butterflies",
       artist: "Tiara Andini",
       duration: "3:35",
       src: "music/song4.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Wahai cinta, beri pertanda",
-        "Dengar bisikan di dalam dada",
-        "Ada kupu-kupu terbang di hatiku",
-        "Setiap kali kutatap bola matamu...",
-        "",
-        "Manis senyummu buatku terpana",
-        "Jantung berdegup tiada jeda",
-        "Wahai cinta, bawalah daku",
-        "Terbang tinggi bersama dirimu..."
+        { id: "Wahai cinta, beri pertanda", en: "O sweet love, give me a sign" },
+        { id: "Dengar bisikan di dalam dada", en: "Listen to the quiet whisper in my chest" },
+        { id: "Ada kupu-kupu terbang di hatiku", en: "Butterflies are fluttering in my heart" },
+        { id: "Setiap kali kutatap bola matamu...", en: "Every time I gaze into your eyes..." },
+        { id: "", en: "" },
+        { id: "Manis senyummu buatku terpana", en: "Your radiant smile leaves me enchanted" },
+        { id: "Jantung berdegup tiada jeda", en: "My heart races without a pause" },
+        { id: "Wahai cinta, bawalah daku", en: "Dear love, please take my hand" },
+        { id: "Terbang tinggi bersama dirimu...", en: "And fly high into the skies with you..." }
       ]
     },
     {
       title: "Cinta Terakhir",
+      titleEn: "My Final Love",
       artist: "Ari Lasso",
       duration: "4:04",
       src: "music/song5.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Sedalam apa rasa cintaku padamu",
-        "Takkan pernah terukur oleh waktu",
-        "Kau lengkapi separuh jiwaku",
-        "Yang lama hilang dalam kelam...",
-        "",
-        "Mungkinkah kau yang 'kan jadi",
-        "Cinta terakhir dalam hidupku?",
-        "Kuberjanji menjaga hatimu",
-        "Hingga hembusan nafas terakhirku..."
+        { id: "Sedalam apa rasa cintaku padamu", en: "How deep my profound love for you is" },
+        { id: "Takkan pernah terukur oleh waktu", en: "Can never be measured by the passage of time" },
+        { id: "Kau lengkapi separuh jiwaku", en: "You complete the other half of my soul" },
+        { id: "Yang lama hilang dalam kelam...", en: "That was lost in the shadows for so long..." },
+        { id: "", en: "" },
+        { id: "Mungkinkah kau yang 'kan jadi", en: "Could you truly be the one" },
+        { id: "Cinta terakhir dalam hidupku?", en: "To be the final love of my entire life?" },
+        { id: "Kuberjanji menjaga hatimu", en: "I promise to protect your tender heart" },
+        { id: "Hingga hembusan nafas terakhirku...", en: "Until the very last breath that I take..." }
       ]
     },
     {
       title: "Dari Mata",
+      titleEn: "From The Eyes To The Heart",
       artist: "Jaz",
       duration: "3:42",
       src: "music/song6.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Matamu melemahkan hatiku...",
-        "Saat pertama kali ku melihatmu",
-        "Dan jujur, ku tak pernah merasa",
-        "Getaran sedahsyat ini sebelumnya...",
-        "",
-        "Dari mata sang turun ke hati",
-        "Ku jatuh cinta kepadamu",
-        "Senyum manis buatku terbayang",
-        "Siang dan malam hanya ada kamu..."
+        { id: "Matamu melemahkan hatiku...", en: "Your eyes soften and melt my heart..." },
+        { id: "Saat pertama kali ku melihatmu", en: "From the very first moment I saw you" },
+        { id: "Dan jujur, ku tak pernah merasa", en: "And honestly, I have never felt" },
+        { id: "Getaran sedahsyat ini sebelumnya...", en: "A spark as captivating as this before..." },
+        { id: "", en: "" },
+        { id: "Dari mata sang turun ke hati", en: "From your glance straight into my heart" },
+        { id: "Ku jatuh cinta kepadamu", en: "I fell completely in love with you" },
+        { id: "Senyum manis buatku terbayang", en: "Your sweet smile lingers in my mind" },
+        { id: "Siang dan malam hanya ada kamu...", en: "Day and night, all I see is you..." }
       ]
     },
     {
       title: "Cintanya Aku",
+      titleEn: "My True Love",
       artist: "Tiara Andini & Arsy Widianto",
       duration: "3:58",
       src: "music/song7.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Kau adalah bahagia yang selalu ku nanti",
-        "Mengisi hari dengan sejuta warna pelangi",
-        "Bukan sekedar kata manis di bibir",
-        "Tapi ketulusan cinta yang mengalir...",
-        "",
-        "Kau cintanya aku, selamanya milikku",
-        "Kujaga kamu di setiap detak jantungku",
-        "Berdua melangkah hadapi dunia",
-        "Hingga akhir masa kita bersama..."
+        { id: "Kau adalah bahagia yang selalu ku nanti", en: "You are the happiness I have always waited for" },
+        { id: "Mengisi hari dengan sejuta warna pelangi", en: "Painting each day with a million rainbow colors" },
+        { id: "Bukan sekedar kata manis di bibir", en: "Not merely sweet words on lips" },
+        { id: "Tapi ketulusan cinta yang mengalir...", en: "But genuine love pouring from within..." },
+        { id: "", en: "" },
+        { id: "Kau cintanya aku, selamanya milikku", en: "You are my true love, forever mine" },
+        { id: "Kujaga kamu di setiap detak jantungku", en: "I will cherish you with every heartbeat" },
+        { id: "Berdua melangkah hadapi dunia", en: "Together we take on the world" },
+        { id: "Hingga akhir masa kita bersama...", en: "Until the end of time, always together..." }
       ]
     },
     {
       title: "Aku Cinta Dia",
+      titleEn: "I Am In Love With Him",
       artist: "Gita Gutawa",
       duration: "3:44",
       src: "music/song8.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Cinta mula pertama...",
-        "Bikin hati berdebar ceria!",
-        "Rindu yang menggebu-gebu",
-        "Hanya tertuju kepadamu...",
-        "",
-        "Aku cinta dia, aku sayang dia!",
-        "Katakan padanya ku tak berdaya",
-        "Bila sehari saja tak bersua",
-        "Dunia terasa sepi tanpa warna..."
+        { id: "Cinta mula pertama...", en: "Falling in love for the very first time..." },
+        { id: "Bikin hati berdebar ceria!", en: "Makes my heart beat with radiant joy!" },
+        { id: "Rindu yang menggebu-gebu", en: "This longing burning so brightly" },
+        { id: "Hanya tertuju kepadamu...", en: "Is devoted completely to you..." },
+        { id: "", en: "" },
+        { id: "Aku cinta dia, aku sayang dia!", en: "I love him so dearly, with all my heart!" },
+        { id: "Katakan padanya ku tak berdaya", en: "Tell him I am so hopelessly in love" },
+        { id: "Bila sehari saja tak bersua", en: "If a single day goes by without seeing him" },
+        { id: "Dunia terasa sepi tanpa warna...", en: "The world feels so empty and colorless..." }
       ]
     },
     {
       title: "Teman Hidup",
+      titleEn: "Lifelong Companion",
       artist: "Tulus",
       duration: "3:52",
       src: "music/song9.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        "Dia indah, meretas gundah",
-        "Dia yang selalu setia ada di kala susah",
-        "Tetaplah bersamaku jadi teman hidupku",
-        "Berdua kita lewati semua lika-liku...",
-        "",
-        "Menua bersama, saling menjaga",
-        "Hingga rambut memutih dimakan usia",
-        "Kaulah tempat hatiku bersandar",
-        "Teman hidup terbaik yang pernah ada..."
+        { id: "Dia indah, meretas gundah", en: "She is beautiful, chasing away all sadness" },
+        { id: "Dia yang selalu setia ada di kala susah", en: "Faithfully standing by through every storm" },
+        { id: "Tetaplah bersamaku jadi teman hidupku", en: "Stay beside me as my partner for life" },
+        { id: "Berdua kita lewati semua lika-liku...", en: "Together we'll journey through every winding road..." },
+        { id: "", en: "" },
+        { id: "Menua bersama, saling menjaga", en: "Growing old together, caring for each other" },
+        { id: "Hingga rambut memutih dimakan usia", en: "Until our hair turns white with the years" },
+        { id: "Kaulah tempat hatiku bersandar", en: "You are the haven where my heart rests" },
+        { id: "Teman hidup terbaik yang pernah ada...", en: "The best companion life could ever give me..." }
       ]
     }
   ];
@@ -1790,31 +1825,41 @@
 
     // Update Full Spotify View Elements
     document.getElementById('sp-cover-img').src = song.cover;
-    document.getElementById('sp-track-title').textContent = song.title;
+    document.getElementById('sp-track-title').textContent = song.titleEn || song.title;
+    const titleEnEl = document.getElementById('sp-track-title-en');
+    if (titleEnEl) titleEnEl.textContent = song.titleEn ? `(${song.title})` : '';
     document.getElementById('sp-track-artist').textContent = song.artist;
     document.getElementById('sp-time-dur').textContent = song.duration;
     document.getElementById('sp-time-cur').textContent = '0:00';
     document.getElementById('sp-progress-fill').style.width = '0%';
 
-    // Build Lyrics Lines
+    // Build Lyrics Lines with English primary and Indonesian translation
     const container = document.getElementById('sp-lyrics-container');
     container.innerHTML = '';
-    song.lyrics.forEach(line => {
-      if (line.trim() === '') {
+    song.lyrics.forEach(item => {
+      if (!item.id && !item.en) {
         const spacer = document.createElement('div');
         spacer.className = 'sp-lyric-space';
         container.appendChild(spacer);
       } else {
-        const lineEl = document.createElement('div');
-        lineEl.className = 'sp-lyric-line';
-        lineEl.textContent = line;
-        container.appendChild(lineEl);
+        const itemEl = document.createElement('div');
+        itemEl.className = 'sp-lyrics-item';
+
+        const mainEl = document.createElement('div');
+        mainEl.className = 'sp-lyric-orig';
+        mainEl.textContent = item.en || item.id;
+        itemEl.appendChild(mainEl);
+
+        if (item.id && item.en) {
+          const transEl = document.createElement('div');
+          transEl.className = 'sp-lyric-trans';
+          transEl.textContent = item.id;
+          itemEl.appendChild(transEl);
+        }
+
+        container.appendChild(itemEl);
       }
     });
-
-    // Update Mini Player Elements
-    document.getElementById('sp-mini-title').textContent = song.title;
-    document.getElementById('sp-mini-artist').textContent = song.artist + ' • Ketuk untuk lirik';
 
     // Update Playlist Highlight & Equalizer
     document.querySelectorAll('.song-item').forEach((item, i) => {
@@ -1833,7 +1878,6 @@
     // Show Spotify Full Player View if requested
     if (autoOpenFull) {
       document.getElementById('spotify-player').classList.add('active');
-      document.getElementById('sp-mini-bar').classList.remove('visible');
       // Scroll to top of player body
       const scrollBody = document.querySelector('.sp-scroll-body');
       if (scrollBody) scrollBody.scrollTop = 0;
@@ -1842,12 +1886,10 @@
 
   function setPlayIcons(isPlaying) {
     const mainIcon = document.getElementById('sp-main-play-icon');
-    const miniIcon = document.getElementById('sp-mini-play-icon');
     const playPath = '<path d="M8 5v14l11-7z"/>';
     const pausePath = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
     
     if (mainIcon) mainIcon.innerHTML = isPlaying ? pausePath : playPath;
-    if (miniIcon) miniIcon.innerHTML = isPlaying ? pausePath : playPath;
   }
 
   function toggleSpPlay() {
@@ -1871,12 +1913,10 @@
 
   function minimizeSpotifyPlayer() {
     document.getElementById('spotify-player').classList.remove('active');
-    document.getElementById('sp-mini-bar').classList.add('visible');
   }
 
   function expandSpotifyPlayer() {
     document.getElementById('spotify-player').classList.add('active');
-    document.getElementById('sp-mini-bar').classList.remove('visible');
   }
 
   function nextTrack() {
