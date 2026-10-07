@@ -794,28 +794,28 @@
     }
 
     /* ── screen-memory (Timeline) ── */
-    #screen-memory { justify-content: flex-start; padding: 30px 20px; overflow-y: auto; }
-    #screen-memory::-webkit-scrollbar { width: 0; }
-    .memory-header h2 { font-size: 1.6rem; color: #333; margin-bottom: 4px; }
-    .memory-header p { font-size: 0.75rem; color: #333; margin-bottom: 25px; font-style: italic; font-family: 'Playfair Display', serif; font-weight: 600; }
+    #screen-memory { justify-content: flex-start; padding: 26px 16px 20px 16px; overflow-y: auto; }
+    #screen-memory::-webkit-scrollbar { display: none; width: 0; }
+    .memory-header h2 { font-size: 1.55rem; color: #222; margin-bottom: 4px; font-family: 'Libre Baskerville', serif; }
+    .memory-header p { font-size: 0.76rem; color: #333; margin-bottom: 22px; font-family: 'Nunito', sans-serif; font-weight: 600; line-height: 1.4; }
     
     .timeline {
-      position: relative; margin-left: 10px; padding-left: 20px;
-      border-left: 2px solid #aaa; display: flex; flex-direction: column; gap: 15px; padding-bottom: 10px; width: 100%;
+      position: relative; margin-left: 10px; padding-left: 18px;
+      border-left: 1.5px solid #222; display: flex; flex-direction: column; gap: 14px; padding-bottom: 10px; width: 100%; box-sizing: border-box;
     }
     .timeline-item {
-      position: relative; background: #888; color: #fff; border-radius: 10px; padding: 10px;
-      display: flex; flex-direction: column; gap: 6px;
+      position: relative; background: #61615f; color: #fff; border-radius: 8px; padding: 11px 12px;
+      display: flex; flex-direction: column; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
     .timeline-item::before {
-      content: ''; position: absolute; left: -25px; top: 15px; width: 8px; height: 8px;
-      background: #444; border-radius: 50%;
+      content: ''; position: absolute; left: -22.5px; top: 50%; transform: translateY(-50%); width: 7px; height: 7px;
+      background: #222; border-radius: 50%;
     }
-    .timeline-title { font-size: 0.85rem; font-family: 'Playfair Display', serif; }
-    .timeline-date { font-size: 0.65rem; color: #eee; margin-top: -6px; }
-    .timeline-content { display: flex; gap: 10px; }
-    .timeline-img { width: 65px; height: 65px; background: #222; border-radius: 5px; object-fit: cover; }
-    .timeline-text { font-size: 0.65rem; line-height: 1.4; flex: 1; }
+    .timeline-title { font-size: 0.88rem; font-family: 'Libre Baskerville', serif; font-weight: 700; color: #fff; }
+    .timeline-date { font-size: 0.65rem; color: #cfcfcf; margin-top: -3px; font-family: 'Nunito', sans-serif; }
+    .timeline-content { display: flex; gap: 10px; align-items: flex-start; }
+    .timeline-img { width: 64px; height: 64px; background: #333; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+    .timeline-text { font-size: 0.66rem; line-height: 1.35; flex: 1; color: #e4e4e4; font-family: 'Nunito', sans-serif; }
 
     /* ── screen-home (Grid) ── */
     #screen-home { justify-content: space-evenly; padding: 28px 24px 22px 24px; gap: 0; }
@@ -944,76 +944,76 @@
   <div class="screen screen-light" id="screen-memory">
     <div class="memory-header text-center">
       <h2>Our Journey So Far</h2>
-      <p>Every step with you has been my<br>favorite kind of story ♥</p>
+      <p>Every step with you has been my favorite kind of story ❤️</p>
     </div>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-title">Our First Meet</div>
-        <div class="timeline-date">11/01/2025</div>
+        <div class="timeline-date">04/06/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline1_meet.jpg" class="timeline-img" alt="Meet">
-          <div class="timeline-text">It all started in the RO M (Right? I think? IDK!) In taking the pavilion where, out of nowhere, you suddenly send me a dm!</div>
+          <img src="photos/timeline3_friends.png" class="timeline-img" alt="Our First Meet">
+          <div class="timeline-text">It all started at the guild base. I was busy building the pavilion when, out of nowhere, you suddenly sent me a chat</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">Our First Chat</div>
-        <div class="timeline-date">12/01/2025</div>
+        <div class="timeline-date">04/06/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline2_chat.jpg" class="timeline-img" alt="Chat">
-          <div class="timeline-text">Our first conversation. We easily matched, shared a lot of stories, and we just hit it off (Looking back I was surprisingly talkative to you, lulz. I think...)</div>
+          <img src="photos/timeline2_chat.jpg" class="timeline-img" alt="Our First Chat">
+          <div class="timeline-text">Our first conversation was quite awkward, neither of us knew what exactly to say. Looking back, I was surprisingly polite to you back then XD</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">Becoming Friends</div>
-        <div class="timeline-date">15/01/2025</div>
+        <div class="timeline-date">04/06/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline3_friends.png" class="timeline-img" alt="Friends">
-          <div class="timeline-text">Later, I keep the chat alive (secretly!). I could not pull away. IDK! I didn't wanna loose what we had there and just went right in. Anything happens!!!</div>
+          <img src="photos/timeline_friends_chat.png" class="timeline-img" alt="Becoming Friends">
+          <div class="timeline-text">Later, I was the one who asked you to add me as friends. After that, I had no idea what to say next, so I just went back to building my pavilion</div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="timeline-title">Sudden Proposal?</div>
-        <div class="timeline-date">02/02/2025</div>
+        <div class="timeline-title">Sudden Proposal?!</div>
+        <div class="timeline-date">05/06/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline4_proposal.png" class="timeline-img" alt="Proposal">
-          <div class="timeline-text">The day where we talked about marriage into a bit? Flashly (single, obviously as our previous partners). Then, you suddenly offered yourself! Nu Uh!!!</div>
+          <img src="photos/timeline1_meet.jpg" class="timeline-img" alt="Sudden Proposal?!">
+          <div class="timeline-text">The day after, we talked about how we were both freshly single, dumped by our previous partners. Then, you suddenly offered yourself to me?!</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">Becoming Partner</div>
-        <div class="timeline-date">10/02/2025</div>
+        <div class="timeline-date">05/06/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline5_partner.png" class="timeline-img" alt="Partner">
-          <div class="timeline-text">I felt like finally, things lead to real. I fell through the walls, fell with you, I felt comfortable. And just like that, our partnership began.</div>
+          <img src="photos/timeline4_proposal.png" class="timeline-img" alt="Becoming Partner">
+          <div class="timeline-text">It felt like being bewitched. I never trust strangers easily, but with you, I felt comfortable. And just like that, our partnership began</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">First Spotlight Together</div>
-        <div class="timeline-date">14/02/2025</div>
+        <div class="timeline-date">08/07/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline3_friends.png" class="timeline-img" alt="Spotlight">
-          <div class="timeline-text">You went the pve with (so we can have a pic together, as u unready... wait... my ...). This is our first spotlight together!</div>
+          <img src="photos/timeline5_partner.png" class="timeline-img" alt="First Spotlight Together">
+          <div class="timeline-text">You were the one with better camera skills between us, so naturally, photo duty always fell on you. This is our first spotlight together</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">We Become Panda?!</div>
-        <div class="timeline-date">16/02/2025</div>
+        <div class="timeline-date">19/07/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline6_panda.jpg" class="timeline-img" alt="Panda">
-          <div class="timeline-text">We fall into a bamboo place, and be as panda bby. Plus we did a panda 'You played a you hatful, and happened to be... our legendary panda moment.</div>
+          <img src="photos/timeline6_panda.jpg" class="timeline-img" alt="We Become Panda?!">
+          <div class="timeline-text">You gifted me a bamboo spear, and the very next day, I turned into a panda. You joined in soon after, and together, we became legendary panda warriors!</div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-title">Our Official Wedding</div>
-        <div class="timeline-date">28/02/2025</div>
+        <div class="timeline-date">21/08/2026</div>
         <div class="timeline-content">
-          <img src="photos/timeline7_wedding.png" class="timeline-img" alt="Wedding">
-          <div class="timeline-text">After routine of warming up thing, searching for virtually servers! We sealed our bond and where's... Chinese wedding... (clothing?)</div>
+          <img src="photos/timeline7_wedding.png" class="timeline-img" alt="Our Official Wedding">
+          <div class="timeline-text">After months of waiting, our long awaited outfits finally arrived! We wasted no time and officially held our wedding ceremony!</div>
         </div>
       </div>
     </div>
-    <div class="text-center" style="padding: 10px 0;">
-      <p style="font-size:0.75rem; font-family:'Playfair Display', serif; color:#333; margin-bottom: 15px; font-weight: 600; line-height: 1.4;">May we keep collecting moments like<br>these for many more days to come,<br>side by side</p>
+    <div class="text-center" style="padding: 18px 0 10px 0;">
+      <p style="font-size:0.78rem; font-family:'Libre Baskerville', serif; color:#222; margin-bottom: 16px; font-weight: 600; line-height: 1.45;">May we keep collecting moments like<br>these for many more days to come,<br>side by side</p>
       <button class="btn-primary" onclick="goTo('screen-home')">Continue</button>
     </div>
   </div>
