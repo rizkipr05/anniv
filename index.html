@@ -39,21 +39,21 @@
     .pol .crown { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 1.6rem; z-index: 2; }
 
     /* ── Gifts ── */
-    #screen-gift { justify-content: space-evenly; padding: 26px 20px 22px; gap: 0; }
-    .gift-title { font-family: 'Libre Baskerville', serif; font-weight: 700; color: #1a1a1a; text-align: center; font-size: 1.02rem; line-height: 1.32; }
-    .gift-grid { display: grid; grid-template-columns: repeat(2, 110px); justify-content: center; column-gap: 44px; row-gap: 10px; }
+    #screen-gift { justify-content: safe center; padding: 20px 16px 18px; gap: 0; }
+    .gift-title { font-family: 'Libre Baskerville', serif; font-weight: 700; color: #1a1a1a; text-align: center; font-size: clamp(0.92rem, 3vw, 1.02rem); line-height: 1.32; }
+    .gift-grid { display: grid; grid-template-columns: repeat(2, clamp(80px, 22vw, 105px)); justify-content: center; column-gap: clamp(20px, 6vw, 40px); row-gap: 8px; margin: 6px 0; }
     .gift-grid .gift-box:last-child { grid-column: 1 / span 2; justify-self: center; }
-    .gift-box { width: 110px; cursor: pointer; transition: transform .25s ease; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.22)); animation: giftWiggle 3.2s ease-in-out infinite; }
+    .gift-box { width: clamp(80px, 22vw, 105px); cursor: pointer; transition: transform .25s ease; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.22)); animation: giftWiggle 3.2s ease-in-out infinite; }
     .gift-box:nth-child(2) { animation-delay: .4s; } .gift-box:nth-child(3) { animation-delay: .8s; }
     .gift-box:nth-child(4) { animation-delay: 1.2s; } .gift-box:nth-child(5) { animation-delay: 1.6s; }
     .gift-box:hover { transform: scale(1.08) rotate(-3deg); }
     .gift-box:active { transform: scale(0.94); }
     @keyframes giftWiggle { 0%,86%,100% { rotate: 0deg; } 89% { rotate: -6deg; } 92% { rotate: 6deg; } 95% { rotate: -3deg; } }
-    .gift-open { justify-content: space-between; padding: 0 0 34px; gap: 0; position: relative; overflow: hidden; }
+    .gift-open { justify-content: space-between; padding: 0 0 28px; gap: 0; position: relative; overflow: hidden; }
     .gift-stage { position: relative; width: 100%; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .gift-lid { width: 160px; margin-top: 20px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); }
-    .gift-pic { width: 84%; max-width: 320px; margin-top: 14px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: block; }
-    .gift-base { width: 88%; max-width: 340px; margin-top: 8px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22)); }
+    .gift-lid { width: min(150px, 36vw); margin-top: 14px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); }
+    .gift-pic { width: 84%; max-width: 300px; max-height: min(220px, 32vh); object-fit: contain; margin-top: 10px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: block; }
+    .gift-base { width: 88%; max-width: 320px; margin-top: 6px; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22)); }
     .screen.active .gift-lid { animation: lidPop .8s cubic-bezier(.3,1.6,.5,1) both; }
     .screen.active .gift-pic { animation: picRise .9s .2s cubic-bezier(.2,1.2,.4,1) both; }
     @keyframes lidPop { from { transform: translateY(140px) scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -554,18 +554,36 @@
     }
 
     .phone {
-      width: 360px;
-      height: 720px;
+      width: min(380px, 92vw);
+      max-width: 400px;
+      height: min(720px, calc(100dvh - 28px), calc(100vh - 28px));
+      max-height: calc(100dvh - 20px);
       position: relative;
       overflow: hidden;
-      border-radius: 40px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 2px #333;
+      border-radius: 36px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 2px #333;
       background: #e6dfd3;
       transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ── Mobile Fullscreen (Saat dibuka di HP / Smartphone) ── */
-    @media (max-width: 600px), (max-device-width: 600px), (hover: none) and (pointer: coarse) and (orientation: portrait) {
+    /* ── Tablet (Layar Tablet 601px - 1024px) ── */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      body {
+        padding: 16px;
+      }
+      .phone {
+        width: min(420px, 88vw);
+        max-width: 440px;
+        height: min(740px, calc(100dvh - 32px));
+        border-radius: 36px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 2px #333;
+      }
+    }
+
+    /* ── Mobile Fullscreen (Smartphone <= 600px) ── */
+    @media (max-width: 600px) {
       html, body {
         width: 100% !important;
         height: 100% !important;
@@ -599,16 +617,15 @@
       }
 
       .screen {
-        padding-top: max(24px, env(safe-area-inset-top));
-        padding-bottom: max(24px, env(safe-area-inset-bottom));
-        padding-left: max(20px, env(safe-area-inset-left));
-        padding-right: max(20px, env(safe-area-inset-right));
+        padding-top: max(20px, env(safe-area-inset-top));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
       }
 
       #screen-pass {
-        padding-top: max(20px, env(safe-area-inset-top)) !important;
-        padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
-        overflow-y: auto;
+        padding-top: max(16px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
       }
 
       #screen-music2,
@@ -620,19 +637,19 @@
       }
 
       #screen-music2 > div:first-child {
-        padding-top: max(20px, calc(env(safe-area-inset-top) + 6px)) !important;
+        padding-top: max(16px, calc(env(safe-area-inset-top) + 4px)) !important;
       }
 
       #screen-music2 > div:last-child {
-        padding-bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px)) !important;
+        padding-bottom: max(14px, calc(env(safe-area-inset-bottom) + 6px)) !important;
       }
 
       .sp-header {
-        padding-top: max(18px, calc(env(safe-area-inset-top) + 6px)) !important;
+        padding-top: max(16px, calc(env(safe-area-inset-top) + 4px)) !important;
       }
 
       .sp-scroll-body {
-        padding-bottom: max(32px, calc(env(safe-area-inset-bottom) + 16px)) !important;
+        padding-bottom: max(28px, calc(env(safe-area-inset-bottom) + 14px)) !important;
       }
     }
 
@@ -644,12 +661,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 32px 28px;
+      justify-content: safe center;
+      padding: 24px 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.45s ease, transform 0.45s ease;
       transform: translateX(60px);
+    }
+    .screen::-webkit-scrollbar {
+      display: none;
+      width: 0;
     }
 
     .screen.active {
@@ -672,28 +697,31 @@
     /* ── PIN Screen ── */
     #screen-pass {
       background: #971c1e;
-      padding: 20px 16px;
+      padding: 16px 14px;
+      justify-content: safe center;
     }
     .pass-card {
       background: #49191a;
       border-radius: 24px;
-      padding: 20px 16px 16px;
+      padding: 16px 16px 12px;
       width: 100%;
       max-width: 320px;
       display: flex;
       flex-direction: column;
       align-items: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      gap: 3px;
+      gap: 2px;
+      margin: auto 0;
     }
     .pass-card .dog-img {
-      width: 95px;
+      width: min(84px, 15vh);
       height: auto;
       margin-bottom: 2px;
+      object-fit: contain;
     }
     .pass-card h1 {
       color: #fff;
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 3.4vw, 1.25rem);
       font-weight: 700;
       text-align: center;
       margin-bottom: 2px;
@@ -701,11 +729,11 @@
     .pass-card .subtitle {
       color: rgba(255,255,255,0.7);
       font-size: 0.72rem;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       text-align: center;
     }
 
-    .pin-dots { display: flex; gap: 8px; margin: 4px 0 2px; }
+    .pin-dots { display: flex; gap: 8px; margin: 3px 0 2px; }
     .pin-dot {
       width: 10px; height: 10px; border-radius: 50%;
       border: 1.5px solid rgba(255,255,255,0.6);
@@ -714,21 +742,21 @@
     .pin-dot.filled { background: #fff; border-color: #fff; }
 
     .numpad {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-      width: 220px; margin-top: 6px; justify-items: center;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(6px, 1.5vh, 10px);
+      width: min(220px, 85%); margin-top: 4px; justify-items: center;
     }
     .numpad button {
       background: #ded9d3;
       color: #1a1a1a; border: none; border-radius: 50%;
-      width: 56px; height: 56px;
-      font-size: 1.25rem; font-weight: 700; font-family: 'Playfair Display', serif;
+      width: clamp(48px, 10vh, 56px); height: clamp(48px, 10vh, 56px);
+      font-size: clamp(1.1rem, 2.6vh, 1.25rem); font-weight: 700; font-family: 'Playfair Display', serif;
       cursor: pointer; transition: background 0.15s, transform 0.1s;
       box-shadow: 0 2px 5px rgba(0,0,0,0.25);
     }
     .numpad button:hover { background: #ffffff; }
     .numpad button:active { transform: scale(0.92); background: #c8c2bb; }
 
-    .pin-hint { color: rgba(255,255,255,0.45); font-size: 0.68rem; font-style: italic; margin-top: 8px; text-align: center; }
+    .pin-hint { color: rgba(255,255,255,0.45); font-size: 0.68rem; font-style: italic; margin-top: 6px; text-align: center; }
     .pin-error { color: #ff8a8a; font-size: 0.75rem; font-weight: 600; min-height: 16px; margin-top: 2px; }
 
     /* ── Light Screens ── */
@@ -772,25 +800,26 @@
     .dark-card {
       background: #471114;
       border-radius: 20px;
-      padding: 40px 24px;
+      padding: clamp(22px, 5vh, 36px) 20px;
       text-align: center;
       color: #fff;
       width: 90%;
       max-width: 340px;
-      min-height: 360px;
-      max-height: 500px;
+      min-height: min(320px, 52vh);
+      max-height: 480px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      margin: auto 0;
     }
     .dark-card h2 {
-      font-size: 1.45rem;
+      font-size: clamp(1.2rem, 3.8vw, 1.45rem);
       line-height: 1.4;
       font-weight: normal;
       font-style: italic;
-      margin-bottom: 35px;
+      margin-bottom: clamp(20px, 4.5vh, 35px);
     }
 
     /* ── screen-memory (Timeline) ── */
@@ -818,9 +847,9 @@
     .timeline-text { font-size: 0.66rem; line-height: 1.35; flex: 1; color: #e4e4e4; font-family: 'Nunito', sans-serif; }
 
     /* ── screen-home (Grid) ── */
-    #screen-home { justify-content: space-evenly; padding: 28px 24px 22px 24px; gap: 0; }
-    #screen-home h2 { font-size: 1.35rem; line-height: 1.25; color: #1a1a1a; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 4px; }
-    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: min(300px, 82vw); margin: 6px auto 10px auto; }
+    #screen-home { justify-content: safe center; padding: 20px 18px 16px 18px; gap: 0; }
+    #screen-home h2 { font-size: clamp(1.15rem, 3.6vw, 1.35rem); line-height: 1.25; color: #1a1a1a; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 2px; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.4vh, 10px); width: 100%; max-width: min(280px, 78vw); margin: 4px auto 8px auto; }
     .home-grid-item {
       background: transparent; border-radius: 12px; padding: 0; display: flex; align-items: center; justify-content: center;
       cursor: pointer; border: none; transition: transform 0.15s ease, filter 0.15s ease; aspect-ratio: 83 / 90;
@@ -896,15 +925,15 @@
 
   <!-- ═══════ SCREEN 2: WELCOME ═══════ -->
   <div class="screen screen-light" id="screen-welcome">
-    <img src="dog_welcome.png" alt="cute dog with glasses" style="width:145px; height:auto;" class="float"/>
-    <h2 class="serif text-center" style="font-size:1.55rem; color:#222; margin-top:20px;">Hi, Dear!!!</h2>
+    <img src="dog_welcome.png" alt="cute dog with glasses" style="width:140px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.5rem; color:#222; margin-top:14px;">Hi, Dear!!!</h2>
     <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
 
   <!-- ═══════ SCREEN 3: QUESTION ═══════ -->
   <div class="screen screen-light" id="screen-question">
-    <img src="dog_question.png" alt="dog eating strawberry" style="width:150px; height:auto;" class="float"/>
-    <h2 class="serif text-center" style="font-size:1.4rem; color:#222; margin-top:20px; line-height:1.35;">Are you ready<br>for the surprise?</h2>
+    <img src="dog_question.png" alt="dog eating strawberry" style="width:145px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.35rem; color:#222; margin-top:14px; line-height:1.35;">Are you ready<br>for the surprise?</h2>
     <div class="btn-row" style="margin-top:14px; display:flex; gap:14px;">
       <button class="btn-primary" onclick="goTo('screen-yes1')" style="padding:7px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Yes!</button>
       <button class="btn-outline" onclick="goTo('screen-no')" style="padding:7px 24px; border-radius:24px; background:transparent; color:#222; font-family:'Playfair Display', serif; font-size:0.95rem; border:1.5px solid #971c1e; cursor:pointer;">Noo</button>
@@ -913,23 +942,23 @@
 
   <!-- ═══════ SCREEN 4: NO ═══════ -->
   <div class="screen screen-light" id="screen-no">
-    <img src="dog_no.png" alt="dummy dog" style="width:145px; height:auto;" class="float"/>
-    <h2 class="serif text-center" style="font-size:1.35rem; color:#222; line-height:1.35; margin-top:20px;">SKY!!! YOU BIG<br>DUMMY!!!</h2>
-    <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:16px; padding:7px 26px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Back</button>
+    <img src="dog_no.png" alt="dummy dog" style="width:140px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.3rem; color:#222; line-height:1.35; margin-top:14px;">SKY!!! YOU BIG<br>DUMMY!!!</h2>
+    <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:14px; padding:7px 26px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Back</button>
   </div>
 
   <!-- ═══════ SCREEN 5: YES 1 (100 Days) ═══════ -->
   <div class="screen screen-light" id="screen-yes1">
-    <img src="dog_yes1.png" alt="dog with heart" style="width:150px; height:auto;" class="float"/>
-    <h2 class="serif text-center" style="font-size:1.3rem; color:#222; line-height:1.35; margin-top:20px;">Today is a special day,<br>our 100 days anniversary!</h2>
-    <button class="btn-primary" onclick="goTo('screen-yes2')" style="margin-top:14px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
+    <img src="dog_yes1.png" alt="dog with heart" style="width:145px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.25rem; color:#222; line-height:1.35; margin-top:14px;">Today is a special day,<br>our 100 days anniversary!</h2>
+    <button class="btn-primary" onclick="goTo('screen-yes2')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
 
   <!-- ═══════ SCREEN 6: YES 2 (Partner Birthday) ═══════ -->
   <div class="screen screen-light" id="screen-yes2">
-    <img src="dog_yes2.png" alt="dog standing" style="width:140px; height:auto;" class="float"/>
-    <h2 class="serif text-center" style="font-size:1.25rem; color:#222; line-height:1.35; margin-top:20px;">Together with that, I also<br>want to celebrate my<br>partner's birthday!</h2>
-    <button class="btn-primary" onclick="goTo('screen-yes3')" style="margin-top:14px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
+    <img src="dog_yes2.png" alt="dog standing" style="width:135px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <h2 class="serif text-center" style="font-size:1.2rem; color:#222; line-height:1.35; margin-top:14px;">Together with that, I also<br>want to celebrate my<br>partner's birthday!</h2>
+    <button class="btn-primary" onclick="goTo('screen-yes3')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
 
   <!-- ═══════ SCREEN: YES3 (Memory Lane) ═══════ -->
@@ -1068,29 +1097,29 @@
   <div id="gift-screens" style="display:contents"></div>
 
   <!-- ═══════ SCREEN: CAKE ═══════ -->
-  <div class="screen screen-light" id="screen-cake" style="gap: 8px;">
+  <div class="screen screen-light" id="screen-cake" style="gap: 6px;">
     <div class="confetti-container" id="confetti-cake"></div>
-    <h2 class="text-center serif" style="font-size:1.5rem; line-height:1.35; color:#222; margin-top:5px; margin-bottom: 5px;">A Special Cake<br>For Today's Star!</h2>
-    <img src="cake_strawberry_transparent.png" alt="A Special Birthday Cake" class="float" style="width:245px; max-width:82%; height:auto; margin: 12px 0 16px 0;" />
-    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.35; color:#222; margin-bottom: 15px;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
+    <h2 class="text-center serif" style="font-size:1.45rem; line-height:1.3; color:#222; margin-top:2px; margin-bottom: 4px;">A Special Cake<br>For Today's Star!</h2>
+    <img src="cake_strawberry_transparent.png" alt="A Special Birthday Cake" class="float" style="width:230px; max-width:80%; max-height:min(180px, 24vh); object-fit:contain; margin: 8px 0 12px 0;" />
+    <h2 class="text-center serif" style="font-size:1.3rem; line-height:1.3; color:#222; margin-bottom: 12px;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
     <button class="btn-primary" onclick="goTo('screen-cake1')">Blow the Candle</button>
   </div>
 
   <!-- ═══════ SCREEN: CAKE 1 ═══════ -->
-  <div class="screen screen-light" id="screen-cake1" style="gap: 8px;">
+  <div class="screen screen-light" id="screen-cake1" style="gap: 6px;">
     <div class="confetti-container" id="confetti-cake1"></div>
-    <h2 class="text-center serif" style="font-size:1.5rem; line-height:1.35; color:#222; margin-top:5px; margin-bottom: 2px;">Happy Birthday &amp;<br>Happy 100 Days, Dear!</h2>
-    <img src="dog_party_transparent.png" alt="Happy Birthday Dog" class="float" style="width:205px; height:auto; margin: 15px 0 10px 0; cursor: pointer;" />
-    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.35; color:#222; margin-bottom: 4px;">Double The Celebration,<br>Double The Happiness!</h2>
-    <p style="font-size:0.75rem; color:#444; text-align:center; font-family:'Nunito', sans-serif; line-height:1.45; margin-bottom: 18px;">Being with you is one of the best thing<br>that ever happened in my life! 💕💕💕</p>
+    <h2 class="text-center serif" style="font-size:1.4rem; line-height:1.25; color:#222; margin-top:2px; margin-bottom: 2px;">Happy Birthday &amp;<br>Happy 100 Days, Dear!</h2>
+    <img src="dog_party_transparent.png" alt="Happy Birthday Dog" class="float" style="width:190px; max-height:min(160px, 22vh); object-fit:contain; margin: 8px 0 6px 0; cursor: pointer;" />
+    <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.25; color:#222; margin-bottom: 2px;">Double The Celebration,<br>Double The Happiness!</h2>
+    <p style="font-size:0.75rem; color:#444; text-align:center; font-family:'Nunito', sans-serif; line-height:1.4; margin-bottom: 12px;">Being with you is one of the best thing<br>that ever happened in my life! 💕💕💕</p>
     <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
   </div>
 
   <!-- ═══════ SCREEN: FLOWER ═══════ -->
   <div class="screen screen-light" id="screen-flower" style="gap: 6px;">
     <div class="confetti-container" id="confetti-flower"></div>
-    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.3; color:#a41c27; margin-top:5px; margin-bottom: 2px;">💕 Here's A Bouquet Of<br>Flowers For You! 💕</h2>
-    <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:220px; max-width:85%; height:auto; margin: 15px 0 12px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
+    <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.3; color:#a41c27; margin-top:4px; margin-bottom: 2px;">💕 Here's A Bouquet Of<br>Flowers For You! 💕</h2>
+    <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:210px; max-width:82%; max-height:min(175px, 23vh); object-fit:contain; margin: 10px 0 10px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
     <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 6px;">Tap The Flowers To<br>Unwrap Your Surprise</h2>
   </div>
 
@@ -1158,9 +1187,9 @@
 
   <!-- ═══════ SCREEN: PHOTO 1 ═══════ -->
   <div class="screen screen-light" id="screen-photo1" style="gap: 5px;">
-    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">These 100 days have given<br>us so many wonderful little<br>moments</h2>
-    <img src="camera_polaroid_transparent.png" alt="Instant camera and polaroid" class="float" style="width: 300px; max-width: 100%; height: auto; margin: 30px 0 35px 0;" />
-    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222;">Here are some of the<br>ones I treasure most!</h2>
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-top:4px;">These 100 days have given<br>us so many wonderful little<br>moments</h2>
+    <img src="camera_polaroid_transparent.png" alt="Instant camera and polaroid" class="float" style="width: 250px; max-width: 82%; max-height:min(180px, 24vh); object-fit:contain; margin: 12px 0 16px 0;" />
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-bottom: 10px;">Here are some of the<br>ones I treasure most!</h2>
     <button class="btn-primary lb" style="margin-top:14px; font-weight:400 !important;" onclick="goTo('screen-collage')">Open The Album</button>
   </div>
 
@@ -1243,34 +1272,34 @@
 
   <!-- ═══════ SCREEN: MUSIC 1 (iPod) ═══════ -->
   <div class="screen screen-light" id="screen-music1" style="gap: 5px;">
-    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.35; color:#222; margin-top: 15px; margin-bottom: 15px;">Some Songs Make Me<br>Think Of You Every Time I<br>Hear Them</h2>
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-top: 8px; margin-bottom: 8px;">Some Songs Make Me<br>Think Of You Every Time I<br>Hear Them</h2>
     
-    <img src="red_ipod.png" alt="iPod with Earphones" class="float" style="width: 250px; max-width: 90%; height: auto; margin: 15px 0 25px 0;" />
+    <img src="red_ipod.png" alt="iPod with Earphones" class="float" style="width: 230px; max-width: 82%; max-height:min(175px, 23vh); object-fit:contain; margin: 8px 0 14px 0;" />
     
-    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 20px;">Do You Want To Hear It,<br>Dear?</h2>
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-bottom: 14px;">Do You Want To Hear It,<br>Dear?</h2>
     
-    <button class="btn-primary lb" style="font-weight:400 !important; font-size: 0.95rem; padding: 12px 34px;" onclick="goTo('screen-music2')">See Playlist</button>
+    <button class="btn-primary lb" style="font-weight:400 !important; font-size: 0.95rem; padding: 10px 32px;" onclick="goTo('screen-music2')">See Playlist</button>
   </div>
 
   <!-- ═══════ SCREEN: MUSIC 2 (Playlist) ═══════ -->
   <div class="screen screen-light" id="screen-music2" style="padding: 0; display: flex; flex-direction: column; overflow: hidden; justify-content: flex-start;">
     <!-- Playlist Header -->
-    <div style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 25px 20px 15px 20px; flex-shrink: 0;">
-      <img src="red_flower_cover.jpg" alt="Cover" style="width: 105px; height: 105px; border-radius: 18px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.15);" />
+    <div style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px 8px 18px; flex-shrink: 0;">
+      <img src="red_flower_cover.jpg" alt="Cover" style="width: 85px; height: 85px; border-radius: 16px; object-fit: cover; box-shadow: 0 8px 18px rgba(0,0,0,0.15);" />
       <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-bottom: 4px;">Playlist • 9 songs • 2026</span>
-        <h2 class="lb" style="font-size: 1.35rem; color: #1a1a1a; margin-bottom: 4px; line-height: 1.2;">To My Dearest</h2>
-        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #333; text-decoration: underline; cursor: pointer;">Mixed Artists</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-bottom: 3px;">Playlist • 9 songs • 2026</span>
+        <h2 class="lb" style="font-size: 1.25rem; color: #1a1a1a; margin-bottom: 3px; line-height: 1.2;">To My Dearest</h2>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #333; text-decoration: underline; cursor: pointer;">Mixed Artists</span>
       </div>
     </div>
 
     <!-- Section Heading -->
-    <div style="width: 100%; padding: 5px 20px 10px 20px; flex-shrink: 0;">
-      <h3 class="lb" style="font-size: 1.25rem; color: #1a1a1a;">Top Songs</h3>
+    <div style="width: 100%; padding: 2px 18px 6px 18px; flex-shrink: 0;">
+      <h3 class="lb" style="font-size: 1.15rem; color: #1a1a1a;">Top Songs</h3>
     </div>
 
     <!-- Song List (Scrollable) -->
-    <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 18px 10px 18px; display: flex; flex-direction: column; gap: 8px;">
+    <div class="music-list" style="flex: 1; overflow-y: auto; width: 100%; padding: 0 16px 22px 16px; display: flex; flex-direction: column; gap: 8px; -webkit-overflow-scrolling: touch;">
       <!-- Song 1 -->
       <div class="song-item" data-index="0" onclick="playSongIndex(0)">
         <div class="song-icon" style="width: 44px; height: 44px; background: #636363; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;">
@@ -1278,7 +1307,7 @@
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
           <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Let's Build That Home</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Sal Priadi • 3:13</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Sal Priadi • 3:31</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1289,8 +1318,8 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lost Within Time</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Barasuara • 4:36</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lost In Time</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Barasuara • 4:59</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1302,7 +1331,7 @@
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
           <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Destiny Will Find A Way</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Afgan • 4:06</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Afgan • 4:05</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1314,7 +1343,7 @@
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
           <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Butterflies</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini • 3:35</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Tiara Andini • 4:02</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1325,8 +1354,8 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">My Final Love</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Ari Lasso • 4:04</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">My Last Love</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Ari Lasso • 3:55</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1337,8 +1366,8 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">From The Eyes To The Heart</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Jaz • 3:42</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">From The Eyes</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Jaz • 3:44</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1350,7 +1379,7 @@
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
           <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">My True Love</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tiara Andini • 3:58</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Tiara Andini & Arsy Widianto • 3:55</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1361,8 +1390,8 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
-          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">I Am In Love With Him</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Gita Gutawa • 3:44</div>
+          <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">I Love Him</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Gita Gutawa • 3:56</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
@@ -1374,34 +1403,33 @@
         </div>
         <div style="flex: 1; padding: 0 12px; min-width: 0;">
           <div class="lb" style="font-size: 0.86rem; color: #1a1a1a; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lifelong Companion</div>
-          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: #555; margin-top: 2px;">Tulus • 3:52</div>
+          <div style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; color: #555; margin-top: 2px;">Tulus • 3:45</div>
         </div>
         <span class="sp-pill-lyrics">Lyrics ♫</span>
       </div>
     </div>
 
-
     <!-- Back Button Footer -->
-    <div style="padding: 6px 0 16px 0; text-align: center; width: 100%; flex-shrink: 0; background: #dcd9d4;">
-      <button class="btn-primary" style="padding: 10px 32px; font-size: 0.85rem;" onclick="goTo('screen-home')">Back</button>
+    <div style="padding: 8px 0 14px 0; text-align: center; width: 100%; flex-shrink: 0; background: #e6dfd3; border-top: 1px solid rgba(0,0,0,0.06); box-shadow: 0 -4px 12px rgba(0,0,0,0.03);">
+      <button class="btn-primary" style="padding: 8px 32px; font-size: 0.86rem; background: #971c1e; box-shadow: 0 4px 12px rgba(151,28,30,0.25);" onclick="goTo('screen-home')">Back</button>
     </div>
   </div>
   
   <!-- ═══════ SCREEN: LETTER 1 ═══════ -->
   <div class="screen screen-light" id="screen-letter1" style="gap: 4px;">
     <div class="confetti-container" id="confetti-letter1"></div>
-    <h2 class="text-center lb" style="font-size:1.15rem; color:#222; margin-top: 8px; margin-bottom: 6px;">Tweet tweet!</h2>
-    <h2 class="text-center lb" style="font-size:1.35rem; line-height:1.3; color:#222; margin-bottom: 16px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
+    <h2 class="text-center lb" style="font-size:1.1rem; color:#222; margin-top: 4px; margin-bottom: 4px;">Tweet tweet!</h2>
+    <h2 class="text-center lb" style="font-size:1.3rem; line-height:1.3; color:#222; margin-bottom: 10px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
     
-    <img src="bird_letter_transparent.png?v=2" alt="Bird Letter" class="float" style="width: 250px; max-width: 82%; height: auto; margin-bottom: 18px;" />
+    <img src="bird_letter_transparent.png?v=2" alt="Bird Letter" class="float" style="width: 230px; max-width: 80%; max-height:min(175px, 23vh); object-fit:contain; margin-bottom: 12px;" />
     
-    <h2 class="text-center lb" style="font-size:1.25rem; line-height:1.3; color:#222; margin-bottom: 18px;">Aren't You Curious To<br>See What's Inside?</h2>
+    <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.3; color:#222; margin-bottom: 14px;">Aren't You Curious To<br>See What's Inside?</h2>
     <button class="btn-primary lb" style="font-weight:400 !important; padding: 10px 28px;" onclick="goTo('screen-letter2')">Take A Peek</button>
   </div>
 
   <!-- ═══════ SCREEN: LETTER 2 ═══════ -->
-  <div class="screen screen-red" id="screen-letter2" style="padding: 20px 0; gap: 18px; background: #a41c27;">
-    <div style="background: #4a191d; border-radius: 22px; width: 86%; flex: 1; min-height: 0; padding: 22px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column;">
+  <div class="screen screen-red" id="screen-letter2" style="padding: 16px 0; gap: 12px; background: #a41c27;">
+    <div style="background: #4a191d; border-radius: 22px; width: 88%; flex: 1; min-height: 0; padding: 20px 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column;">
       <div class="letter-body" style="overflow-y: auto; padding-right: 6px; flex: 1;">
         <h2 class="lb" style="color: #e6dfd3; font-size: 1.1rem; font-weight: 400 !important; margin-bottom: 14px;">To my dearest partner,</h2>
         
@@ -1457,8 +1485,8 @@
       <!-- Track Info & Like Button -->
       <div class="sp-track-row">
         <div class="sp-track-info">
-          <div id="sp-track-title" class="sp-track-title">Kita Usahakan Rumah Itu</div>
-          <div id="sp-track-title-en" class="sp-track-title-en">(Let's Build That Home)</div>
+          <div id="sp-track-title" class="sp-track-title">Let's Build That Home</div>
+          <div id="sp-track-title-en" class="sp-track-title-en">(Kita Usahakan Rumah Itu)</div>
           <div id="sp-track-artist" class="sp-track-artist">Sal Priadi</div>
         </div>
         <button class="sp-btn-like" onclick="toggleFavorite(this)">
@@ -1500,7 +1528,7 @@
       <div class="sp-lyrics-card">
         <div class="sp-lyrics-card-header">
           <span class="sp-lyrics-heading">Lyrics</span>
-          <span class="sp-lyrics-badge">🌐 ID ⇄ EN Subtitles</span>
+          <span class="sp-lyrics-badge">English Lyrics</span>
         </div>
         <div class="sp-lyrics-lines" id="sp-lyrics-container">
           <!-- Lyrics lines injected dynamically -->
@@ -1635,179 +1663,320 @@
       title: "Kita Usahakan Rumah Itu",
       titleEn: "Let's Build That Home",
       artist: "Sal Priadi",
-      duration: "3:13",
+      duration: "3:31",
       src: "music/song1.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Hei, bagaimana kalau kita usahakan rumah itu?", en: "Hey, what if we strive to build that home together?" },
-        { id: "Kita usahakan rumah itu...", en: "Let's make that home ours..." },
-        { id: "Dari depan akan tampak biasa saja", en: "From the outside, it might look ordinary" },
-        { id: "Tapi di dalamnya ada kita yang saling mencinta", en: "But inside, there's the two of us deeply in love" },
+        { id: "Kita usahakan rumah itu", en: "Let's strive to build that home" },
+        { id: "Dari depan akan tampak sederhana", en: "From the front, it will appear simple" },
+        { id: "Tapi kebunnya luas, tanamannya mewah megah", en: "Yet its garden is vast, the plants lush and grand" },
         { id: "", en: "" },
-        { id: "Rumah yang hangat walau hujan badai di luar", en: "A warm sanctuary, no matter how hard it storms outside" },
-        { id: "Tempat kita pulang saat lelah mengejar dunia", en: "A haven to return to when tired of chasing the world" },
-        { id: "Kita sediakan dua cangkir kopi di meja", en: "We'll set two cups of warm coffee upon the table" },
-        { id: "Bercerita hingga larut malam tanpa jeda", en: "Sharing our stories endlessly into the late night" },
+        { id: "Kita usahakan rumah itu", en: "Let's strive to build that home" },
+        { id: "Dari depan akan tampak sederhana", en: "From the front, it will appear simple" },
+        { id: "Tapi dibuat kuat, dirancang muat, lega", en: "Built sturdy, designed spacious and welcoming" },
         { id: "", en: "" },
-        { id: "Hei, bagaimana kalau kita usahakan bersama?", en: "Hey, what if we strive for it side by side?" },
-        { id: "Menua di teras sambil tersenyum bahagia...", en: "Growing old together on the porch, smiling happily..." }
+        { id: "Urusan perabotan dan wangi-wangian", en: "Furnishings and sweet fragrances" },
+        { id: "Kuserahkan pada seleramu yang lebih maju", en: "I leave to your exquisite taste" },
+        { id: "Tapi tata ruang aku ikut pertimbangkan", en: "But I'll help plan out the space" },
+        { id: "Karena kalau nanti kita punya kesibukan", en: "So when life gets busy for both of us" },
+        { id: "", en: "" },
+        { id: "Malam tetap kumpul di meja", en: "At night we still gather at the table" },
+        { id: "Panjang ruang makan kita", en: "Along our dining hall table" },
+        { id: "Berbincang tentang hari yang panjang", en: "Sharing stories of our long days" },
+        { id: "", en: "" },
+        { id: "Kita usahakan rumah itu", en: "Let's strive to build that home" },
+        { id: "Dari depan akan tampak sederhana", en: "From the front, it will appear simple" },
+        { id: "Tapi penerangannya dirancang begitu romantis", en: "With lighting crafted so tender and romantic" },
+        { id: "", en: "" },
+        { id: "Urusan perabotan dan wangi-wangian", en: "Furnishings and sweet fragrances" },
+        { id: "Kuserahkan pada seleramu yang lebih maju", en: "I leave to your exquisite taste" },
+        { id: "Tapi tata ruang aku ikut pertimbangkan", en: "But I'll help plan out the space" },
+        { id: "Karena kalau nanti kita punya kesibukan", en: "So when life gets busy for both of us" },
+        { id: "", en: "" },
+        { id: "Malam tetap kumpul di meja", en: "At night we still gather at the table" },
+        { id: "Panjang ruang makan kita", en: "Along our dining hall table" },
+        { id: "Berbincang tentang hari yang panjang", en: "Sharing stories of our long days" },
+        { id: "", en: "" },
+        { id: "Boleh kamu keliling dunia dan", en: "You may travel across the world and" },
+        { id: "Temukan banyak tempat-tempat untuk singgah sementara", en: "Find many places to stay for a while" },
+        { id: "Kamu boleh namai itu rumah", en: "You can call those places home" },
+        { id: "Selama ada mereka yang kamu cinta di dalamnya", en: "As long as those you love are within" },
+        { id: "", en: "" },
+        { id: "Kita usahakan rumah itu", en: "Let's strive to build that home" }
       ]
     },
     {
       title: "Terbuang Dalam Waktu",
-      titleEn: "Lost Within Time",
+      titleEn: "Lost In Time",
       artist: "Barasuara",
-      duration: "4:36",
+      duration: "4:59",
       src: "music/song2.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Biar reda, redam luka di dada...", en: "Let it soothe, easing the ache in our chest..." },
-        { id: "Tiap kata, simpan dalam sukma...", en: "Every spoken word, treasured deep in our soul..." },
-        { id: "Yang terbuang dalam waktu...", en: "All that was once lost in the river of time..." },
-        { id: "Biarlah mengalir sendu...", en: "Let it gently drift away..." },
+        { id: "Teringat seru suaramu menepis keraguan", en: "I remember your vivid voice dispelling every doubt" },
+        { id: "Namun dewasa mengubah", en: "Yet growing older changes things" },
+        { id: "Cara pandang dan keikhlasan bersaut dan bergulat", en: "Perspectives and acceptance intertwine and clash" },
+        { id: "Terperai-perai menghilang", en: "Scattering away and fading into the distance" },
         { id: "", en: "" },
-        { id: "Menanti badai berlalu", en: "Waiting for the storm to pass us by" },
-        { id: "Kusimpan senyum di matamu", en: "I keep the warm sparkle of your eyes close" },
-        { id: "Biar dunia berganti rupa", en: "Even if the entire world changes around us" },
-        { id: "Kita tetap satu rasa...", en: "Our hearts will forever beat as one..." }
+        { id: "Perih yang terasa, sakit yang tak sirna", en: "The stinging ache, the lingering sorrow" },
+        { id: "Harapan akankah ada?", en: "Will hope still remain?" },
+        { id: "Berputar arah", en: "Turning in new directions" },
+        { id: "", en: "" },
+        { id: "Angan tenggelam dalam kabut dan amarah", en: "Dreams submerged in fog and unspoken anger" },
+        { id: "Luka terkuak dan menggebu tanpa arah", en: "Wounds laid bare, surging without aim" },
+        { id: "Tangis yang terbendung", en: "Tears held back for so long" },
+        { id: "Terbuang dalam waktu yang meluruh", en: "Swept away within the dissolving time" },
+        { id: "", en: "" },
+        { id: "Perih yang terasa, sakit yang tak sirna", en: "The stinging ache, the lingering sorrow" },
+        { id: "Harapan akankah ada?", en: "Will hope still remain?" },
+        { id: "Berubah...", en: "Transforming..." },
+        { id: "", en: "" },
+        { id: "Melihatmu bersemi dan bermekaran", en: "Watching you blossom and flourish" },
+        { id: "Tawa candamu berikan kekuatan", en: "Your laughter and warmth grant me strength" },
+        { id: "Sisa hariku", en: "For the rest of my days" },
+        { id: "Pagi berganti waktu memelukmu", en: "Morning transitions into holding you close" },
+        { id: "", en: "" },
+        { id: "Kita 'kan tua dan kehilangan pegangan", en: "We will grow old and lose our steady grasp" },
+        { id: "Lihat senyummu memberikan kekuatan", en: "Yet seeing your smile gives me endless strength" },
+        { id: "Sisa nafasku", en: "With every breath remaining in me" },
+        { id: "Cinta tak kenal waktu menjagamu", en: "A timeless love watching over you" }
       ]
     },
     {
       title: "Jodoh Pasti Bertemu",
       titleEn: "Destiny Will Find A Way",
       artist: "Afgan",
-      duration: "4:06",
+      duration: "4:05",
       src: "music/song3.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Andai ku tahu semua akan begini", en: "If only I knew it would turn out this way" },
-        { id: "Takkan kubiarkan hatiku terbuai rasa", en: "I wouldn't have let my heart fall so deeply" },
-        { id: "Namun jika memang kau takdirku", en: "Yet if you are indeed my destined love" },
-        { id: "Kemana pun kau pergi kita 'kan bersatu...", en: "Wherever you wander, we are bound to unite..." },
+        { id: "Andai engkau tahu betapa ku mencinta", en: "If only you knew just how deeply I love you" },
+        { id: "Selalu menjadikanmu isi dalam doaku", en: "Always holding you at the heart of my prayers" },
+        { id: "Ku tahu tak mudah menjadi yang kau minta", en: "I know it isn't easy to be who you wish for" },
+        { id: "Ku pasrahkan hatiku, takdir 'kan menjawabnya", en: "I surrender my heart, let destiny give its answer" },
         { id: "", en: "" },
-        { id: "Karena jodoh pasti bertemu", en: "Because soulmates will always find each other" },
-        { id: "Walau terpisah ruang dan waktu", en: "Even across distance and time" },
-        { id: "Tuhan punya rencana indah", en: "Destiny holds a beautiful design" },
-        { id: "Menyatukan dua hati yang searah...", en: "Bringing two guided hearts together..." }
+        { id: "Jika aku bukan jalanmu", en: "If I am not the path destined for you" },
+        { id: "Ku berhenti mengharapkanmu", en: "I will stop wishing and yearning for you" },
+        { id: "Jika aku memang tercipta untukmu", en: "Yet if I truly was created for you" },
+        { id: "Ku 'kan memilikimu", en: "I will surely hold your heart" },
+        { id: "Jodoh pasti bertemu", en: "Soulmates will always meet" },
+        { id: "", en: "" },
+        { id: "Andai engkau tahu betapa ku mencinta", en: "If only you knew just how deeply I love you" },
+        { id: "Ku pasrahkan hatiku, takdir 'kan menjawabnya", en: "I surrender my heart, let destiny give its answer" },
+        { id: "", en: "" },
+        { id: "Jika aku bukan jalanmu", en: "If I am not the path destined for you" },
+        { id: "Ku berhenti mengharapkanmu", en: "I will stop wishing and yearning for you" },
+        { id: "Jika aku memang tercipta untukmu", en: "Yet if I truly was created for you" },
+        { id: "Ku 'kan memilikimu", en: "I will surely hold your heart" },
+        { id: "Jodoh pasti bertemu", en: "Soulmates will always meet" },
+        { id: "", en: "" },
+        { id: "Ku tuliskan di nadiku", en: "Inscribed deep into my heartbeat" },
+        { id: "Kau yang tercipta untukku", en: "You, who were made for me" },
+        { id: "Ku 'kan memilikimu", en: "I will surely hold your heart" },
+        { id: "", en: "" },
+        { id: "Jika aku bukan jalanmu", en: "If I am not the path destined for you" },
+        { id: "Ku berhenti mengharapkanmu", en: "I will stop wishing and yearning for you" },
+        { id: "Jika aku memang tercipta untukmu", en: "Yet if I truly was created for you" },
+        { id: "Ku 'kan memilikimu", en: "I will surely hold your heart" },
+        { id: "Jodoh pasti bertemu", en: "Soulmates will always meet" }
       ]
     },
     {
       title: "Kupu-Kupu",
       titleEn: "Butterflies",
       artist: "Tiara Andini",
-      duration: "3:35",
+      duration: "4:02",
       src: "music/song4.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Wahai cinta, beri pertanda", en: "O sweet love, give me a sign" },
-        { id: "Dengar bisikan di dalam dada", en: "Listen to the quiet whisper in my chest" },
-        { id: "Ada kupu-kupu terbang di hatiku", en: "Butterflies are fluttering in my heart" },
-        { id: "Setiap kali kutatap bola matamu...", en: "Every time I gaze into your eyes..." },
+        { id: "Betapa mudahnya kau buat pipi merona", en: "How effortlessly you make my cheeks blush" },
+        { id: "Jantungku terpompa setiap kita berjumpa", en: "My heart races every time our eyes meet" },
         { id: "", en: "" },
-        { id: "Manis senyummu buatku terpana", en: "Your radiant smile leaves me enchanted" },
-        { id: "Jantung berdegup tiada jeda", en: "My heart races without a pause" },
-        { id: "Wahai cinta, bawalah daku", en: "Dear love, please take my hand" },
-        { id: "Terbang tinggi bersama dirimu...", en: "And fly high into the skies with you..." }
+        { id: "Tak pernah 'ku rasa, tak berdaya", en: "I have never felt so delightfully helpless" },
+        { id: "Tanpa bual kata-kata", en: "Without need for empty flatteries" },
+        { id: "Hatiku terbaca, hatimulah yang kupuja", en: "My heart is an open book, yours is the one I adore" },
+        { id: "", en: "" },
+        { id: "Wahai cinta beri pertanda", en: "O dear love, give me a sign" },
+        { id: "Dengar kupu-kupu yang bicara", en: "Listen to the fluttering butterflies whispering" },
+        { id: "Bisingkan dada, melantunkan nada asmara", en: "Stirring within my chest, singing sweet melodies of romance" },
+        { id: "Andai cinta setangkai bunga", en: "If our love is a delicate blossom" },
+        { id: "Takkan buat kau layu dan kecewa", en: "I will never let you wither or feel disappointed" },
+        { id: "'Kan 'ku jaga binar hatinya", en: "I shall tenderly guard the radiant sparkle of your heart" },
+        { id: "", en: "" },
+        { id: "Jangan hentikan kepak sayapmu", en: "Never cease the flutter of your delicate wings" },
+        { id: "Sintas hinggapi permai hatiku", en: "Rest gently upon the sanctuary of my heart" },
+        { id: "Jaga bara kau jadi apiku", en: "Keep the warmth alive as my sacred spark" },
+        { id: "Sinyal menyala di radar hatiku", en: "Lighting signals bright across the radar of my soul" },
+        { id: "", en: "" },
+        { id: "Wahai cinta beri pertanda", en: "O dear love, give me a sign" },
+        { id: "Dengar kupu-kupu yang bicara", en: "Listen to the fluttering butterflies whispering" },
+        { id: "Bisingkan dada, melantunkan nada asmara", en: "Stirring within my chest, singing sweet melodies of romance" },
+        { id: "Andai cinta setangkai bunga", en: "If our love is a delicate blossom" },
+        { id: "Takkan buat kau layu dan kecewa", en: "I will never let you wither or feel disappointed" },
+        { id: "'Kan 'ku jaga binar hatinya", en: "I shall tenderly guard the radiant sparkle of your heart" }
       ]
     },
     {
       title: "Cinta Terakhir",
-      titleEn: "My Final Love",
+      titleEn: "My Last Love",
       artist: "Ari Lasso",
-      duration: "4:04",
+      duration: "3:55",
       src: "music/song5.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Sedalam apa rasa cintaku padamu", en: "How deep my profound love for you is" },
-        { id: "Takkan pernah terukur oleh waktu", en: "Can never be measured by the passage of time" },
-        { id: "Kau lengkapi separuh jiwaku", en: "You complete the other half of my soul" },
-        { id: "Yang lama hilang dalam kelam...", en: "That was lost in the shadows for so long..." },
+        { id: "Sedalam samudera telah aku selami", en: "As deep as the vast ocean, I have dived" },
+        { id: "Setinggi langit di angkasa t'lah kuarungi", en: "As high as the boundless heavens, I have soared" },
+        { id: "Sepanjang kehidupanku aku mencari", en: "Throughout my whole lifetime, I wandered searching" },
+        { id: "Sebentuk kelembutan hati cinta sejati", en: "For the gentle warmth of genuine true love" },
         { id: "", en: "" },
-        { id: "Mungkinkah kau yang 'kan jadi", en: "Could you truly be the one" },
-        { id: "Cinta terakhir dalam hidupku?", en: "To be the final love of my entire life?" },
-        { id: "Kuberjanji menjaga hatimu", en: "I promise to protect your tender heart" },
-        { id: "Hingga hembusan nafas terakhirku...", en: "Until the very last breath that I take..." }
+        { id: "Oh kini usai sudah segala penantian panjangku", en: "Oh now my long-awaited patience has reached its peaceful end" },
+        { id: "Setelah temukan dirimu duhai kekasihku", en: "Now that I have found you, my dearest soul" },
+        { id: "Hanya di hatimu akan kulabuhkan hidupku", en: "Only within your loving heart will I anchor my life" },
+        { id: "Karna kaulah cinta terakhirku", en: "Because you are truly my last and forever love" },
+        { id: "", en: "" },
+        { id: "Berjuta kejora terangi gelap malamku", en: "Millions of twinkling stars illuminate my dark sky" },
+        { id: "Tetap tak seindah cahaya mata hatimu", en: "Yet none shine as brightly as the pure light in your heart" },
+        { id: "", en: "" },
+        { id: "Kini usai sudah segala penantian panjangku", en: "Now my long-awaited patience has reached its peaceful end" },
+        { id: "Setelah temukan dirimu duhai kekasihku", en: "Now that I have found you, my dearest soul" },
+        { id: "Hanya di hatimu akan kulabuhkan hidupku", en: "Only within your loving heart will I anchor my life" },
+        { id: "Karna kaulah cinta terakhirku", en: "Because you are truly my last and forever love" }
       ]
     },
     {
       title: "Dari Mata",
-      titleEn: "From The Eyes To The Heart",
+      titleEn: "From The Eyes",
       artist: "Jaz",
-      duration: "3:42",
+      duration: "3:44",
       src: "music/song6.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Matamu melemahkan hatiku...", en: "Your eyes soften and melt my heart..." },
-        { id: "Saat pertama kali ku melihatmu", en: "From the very first moment I saw you" },
-        { id: "Dan jujur, ku tak pernah merasa", en: "And honestly, I have never felt" },
-        { id: "Getaran sedahsyat ini sebelumnya...", en: "A spark as captivating as this before..." },
+        { id: "Matamu melemahkanku", en: "Your eyes soften and captivate me completely" },
+        { id: "Saat pertama kali 'ku lihatmu", en: "The very first moment I laid eyes upon you" },
+        { id: "Dan jujur 'ku tak pernah merasa", en: "And honestly, I had never felt" },
+        { id: "'Ku tak pernah merasa begini", en: "I had never felt this magical spark before" },
         { id: "", en: "" },
-        { id: "Dari mata sang turun ke hati", en: "From your glance straight into my heart" },
-        { id: "Ku jatuh cinta kepadamu", en: "I fell completely in love with you" },
-        { id: "Senyum manis buatku terbayang", en: "Your sweet smile lingers in my mind" },
-        { id: "Siang dan malam hanya ada kamu...", en: "Day and night, all I see is you..." }
+        { id: "Oh, mungkin inikah cinta pandangan yang pertama", en: "Oh, could this truly be love at first sight?" },
+        { id: "Karena apa yang kurasa ini tak biasa", en: "Because everything I feel right now is out of the ordinary" },
+        { id: "Jika benar ini cinta, mulai dari mana?", en: "If this is genuine love, where does it start?" },
+        { id: "Oh, dari mana?", en: "Oh, from where?" },
+        { id: "", en: "" },
+        { id: "Dari matamu, matamu, kumulai jatuh cinta", en: "From your eyes, your gentle eyes, I fell in love" },
+        { id: "'Ku melihat, melihat ada bayangnya", en: "I look into them and see our reflection together" },
+        { id: "Dari mata kau buatku jatuh", en: "From your eyes you made me fall" },
+        { id: "Jatuh terus, jatuh ke hati", en: "Falling deeper, falling straight into my heart" },
+        { id: "", en: "" },
+        { id: "Dari matamu, matamu, kumulai jatuh cinta", en: "From your eyes, your gentle eyes, I fell in love" },
+        { id: "'Ku melihat, melihat ada bayangnya", en: "I look into them and see our reflection together" },
+        { id: "Dari mata kau buatku jatuh", en: "From your eyes you made me fall" },
+        { id: "Jatuh terus, jatuh ke hati", en: "Falling deeper, falling straight into my heart" },
+        { id: "", en: "" },
+        { id: "Dari mata kau buatku jatuh ke hati...", en: "Straight from your eyes into the depths of my heart..." }
       ]
     },
     {
       title: "Cintanya Aku",
       titleEn: "My True Love",
       artist: "Tiara Andini & Arsy Widianto",
-      duration: "3:58",
+      duration: "3:55",
       src: "music/song7.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Kau adalah bahagia yang selalu ku nanti", en: "You are the happiness I have always waited for" },
-        { id: "Mengisi hari dengan sejuta warna pelangi", en: "Painting each day with a million rainbow colors" },
-        { id: "Bukan sekedar kata manis di bibir", en: "Not merely sweet words on lips" },
-        { id: "Tapi ketulusan cinta yang mengalir...", en: "But genuine love pouring from within..." },
+        { id: "Tergetar aku tepat di hadapanmu", en: "My heart quivers standing right before you" },
+        { id: "Debar jantungku berdetak saat ku genggam tanganmu", en: "My pulse races as my hand gently holds yours" },
+        { id: "Beruntung aku, kini dapatkan cintamu", en: "How blessed I am to hold your sweet love" },
+        { id: "Yang tercantik di hatiku sejak awal ku bertemu", en: "The most gorgeous soul in my heart since the day we met" },
         { id: "", en: "" },
-        { id: "Kau cintanya aku, selamanya milikku", en: "You are my true love, forever mine" },
-        { id: "Kujaga kamu di setiap detak jantungku", en: "I will cherish you with every heartbeat" },
-        { id: "Berdua melangkah hadapi dunia", en: "Together we take on the world" },
-        { id: "Hingga akhir masa kita bersama...", en: "Until the end of time, always together..." }
+        { id: "Janji padaku, jangan kau lukai hati", en: "Promise me never to break this tender heart" },
+        { id: "Seperti kisah yang lalu", en: "Like the sorrows of the distant past" },
+        { id: "", en: "" },
+        { id: "Kau bukan cinta pertamaku", en: "You may not be my very first love" },
+        { id: "Namun aku berharap", en: "Yet my truest wish is that" },
+        { id: "Mulai hari ini, saat ini", en: "Starting from this day, from this very moment" },
+        { id: "Engkau cintanya aku", en: "You are the one and only love of my life" },
+        { id: "", en: "" },
+        { id: "Jangan pernah ragukan kesetiaan hatiku", en: "Never doubt the unwavering devotion of my heart" },
+        { id: "Ku tak inginkan bila ini terbagi", en: "I would never want this love to be shared" },
+        { id: "Engkau cintanya aku", en: "You are the one and only love of my life" },
+        { id: "", en: "" },
+        { id: "Kau bukan cinta pertamaku, namun aku berharap", en: "You may not be my very first love, yet I truly hope" },
+        { id: "Mulai hari ini, saat ini, engkau cintanya aku", en: "Starting today, right now, you are the love of my life" },
+        { id: "Satu untuk selamanya...", en: "One true heart, forever and always..." }
       ]
     },
     {
       title: "Aku Cinta Dia",
-      titleEn: "I Am In Love With Him",
+      titleEn: "I Love Him",
       artist: "Gita Gutawa",
-      duration: "3:44",
+      duration: "3:56",
       src: "music/song8.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Cinta mula pertama...", en: "Falling in love for the very first time..." },
-        { id: "Bikin hati berdebar ceria!", en: "Makes my heart beat with radiant joy!" },
-        { id: "Rindu yang menggebu-gebu", en: "This longing burning so brightly" },
-        { id: "Hanya tertuju kepadamu...", en: "Is devoted completely to you..." },
+        { id: "Di saat kau berjalan di depan rumahku", en: "As you walked casually in front of my house" },
+        { id: "Penuh gaya, tersita pandanganku", en: "Full of charm, completely capturing my gaze" },
+        { id: "Hingga ku terpesona", en: "Leaving me enchanted and in awe" },
+        { id: "Siapakah dirimu, hatiku ingin tahu segera...", en: "Who are you? My longing heart wants to know right away..." },
         { id: "", en: "" },
-        { id: "Aku cinta dia, aku sayang dia!", en: "I love him so dearly, with all my heart!" },
-        { id: "Katakan padanya ku tak berdaya", en: "Tell him I am so hopelessly in love" },
-        { id: "Bila sehari saja tak bersua", en: "If a single day goes by without seeing him" },
-        { id: "Dunia terasa sepi tanpa warna...", en: "The world feels so empty and colorless..." }
+        { id: "Hati yang berbunga pada pandangan pertama", en: "A heart blooming with joy at first sight" },
+        { id: "Oh Tuhan tolonglah, aku cinta, aku cinta dia!", en: "Oh Lord help me, I am in love, so in love with him!" },
+        { id: "", en: "" },
+        { id: "Dudidudidudam, dudidudidudam taram taram...", en: "Dudidudidudam, dudidudidudam taram taram..." },
+        { id: "", en: "" },
+        { id: "Gayamu dan wajahmu terbawa dalam mimpi", en: "Your captivating smile drifts into my every dream" },
+        { id: "Diriku dimabuk asmara...", en: "I am swept away, intoxicated by sweet romance..." },
+        { id: "", en: "" },
+        { id: "Hati yang berbunga pada pandangan pertama", en: "A heart blooming with joy at first sight" },
+        { id: "Oh Tuhan tolonglah, aku cinta, ku cinta dia!", en: "Oh Lord help me, I am in love, so in love with him!" },
+        { id: "", en: "" },
+        { id: "Hati yang berbunga pada pandangan pertama", en: "A heart blooming with joy at first sight" },
+        { id: "Oh Tuhan tolonglah, aku cinta, aku cinta dia!", en: "Oh Lord help me, I am in love, so in love with him!" },
+        { id: "Aku cinta, aku cinta dia...", en: "I love him, I truly love him so..." }
       ]
     },
     {
       title: "Teman Hidup",
       titleEn: "Lifelong Companion",
       artist: "Tulus",
-      duration: "3:52",
+      duration: "3:45",
       src: "music/song9.m4a",
       cover: "red_flower_cover.jpg",
       lyrics: [
-        { id: "Dia indah, meretas gundah", en: "She is beautiful, chasing away all sadness" },
-        { id: "Dia yang selalu setia ada di kala susah", en: "Faithfully standing by through every storm" },
-        { id: "Tetaplah bersamaku jadi teman hidupku", en: "Stay beside me as my partner for life" },
-        { id: "Berdua kita lewati semua lika-liku...", en: "Together we'll journey through every winding road..." },
+        { id: "Dia indah meretas gundah", en: "She is beautiful, chasing away every sorrow" },
+        { id: "Dia yang selama ini ku nanti", en: "She is the one I have waited for all my life" },
+        { id: "Membawa sejuk, memanja rasa", en: "Bringing comforting serenity, delighting the soul" },
+        { id: "Dia yang selalu ada untukku", en: "She who stands faithfully by my side" },
         { id: "", en: "" },
-        { id: "Menua bersama, saling menjaga", en: "Growing old together, caring for each other" },
-        { id: "Hingga rambut memutih dimakan usia", en: "Until our hair turns white with the years" },
-        { id: "Kaulah tempat hatiku bersandar", en: "You are the haven where my heart rests" },
-        { id: "Teman hidup terbaik yang pernah ada...", en: "The best companion life could ever give me..." }
+        { id: "Di dekatnya aku lebih tenang", en: "Near her presence I feel so at ease and calm" },
+        { id: "Bersamanya jalan lebih terang", en: "Beside her every road ahead shines bright" },
+        { id: "", en: "" },
+        { id: "Tetaplah bersamaku jadi teman hidupku", en: "Stay by my side as my companion for life" },
+        { id: "Berdua kita hadapi dunia", en: "Together we shall face the entire world" },
+        { id: "Kau milikku, ku milikmu, kita satukan tuju", en: "You are mine, I am yours, our paths united in one" },
+        { id: "Bersama arungi derasnya waktu", en: "Navigating side by side the swift currents of time" },
+        { id: "", en: "" },
+        { id: "Di dekatnya aku lebih tenang", en: "Near her presence I feel so at ease and calm" },
+        { id: "Bersamanya jalan lebih terang", en: "Beside her every road ahead shines bright" },
+        { id: "", en: "" },
+        { id: "Tetaplah bersamaku jadi teman hidupku", en: "Stay by my side as my companion for life" },
+        { id: "Berdua kita hadapi dunia", en: "Together we shall face the entire world" },
+        { id: "Kau milikku, ku milikmu, kita satukan tuju", en: "You are mine, I am yours, our paths united in one" },
+        { id: "Bersama arungi derasnya waktu", en: "Navigating side by side the swift currents of time" },
+        { id: "", en: "" },
+        { id: "Bila di depan nanti banyak cobaan untuk kisah cinta kita", en: "If along the way many trials challenge our love story" },
+        { id: "Jangan cepat menyerah", en: "Let us never easily surrender" },
+        { id: "Kau punya aku, ku punya kamu, selamanya kan begitu", en: "You have me, I have you, forever it shall be" },
+        { id: "", en: "" },
+        { id: "Tetaplah bersamaku jadi teman hidupku", en: "Stay by my side as my companion for life" },
+        { id: "Berdua kita hadapi dunia", en: "Together we shall face the entire world" },
+        { id: "Kau milikku, ku milikmu, kita satukan tuju", en: "You are mine, I am yours, our paths united in one" },
+        { id: "Bersama arungi derasnya waktu", en: "Navigating side by side the swift currents of time" },
+        { id: "", en: "" },
+        { id: "Kau jiwa yang selalu aku puja...", en: "You are the precious soul I forever cherish..." }
       ]
     }
   ];
 
-  const audioPlayer = new Audio();
+    const audioPlayer = new Audio();
   let currentSongIndex = 0;
   let isShuffled = false;
   let isLooping = false;
@@ -1827,17 +1996,17 @@
     document.getElementById('sp-cover-img').src = song.cover;
     document.getElementById('sp-track-title').textContent = song.titleEn || song.title;
     const titleEnEl = document.getElementById('sp-track-title-en');
-    if (titleEnEl) titleEnEl.textContent = song.titleEn ? `(${song.title})` : '';
+    if (titleEnEl) titleEnEl.textContent = song.title ? `(${song.title})` : '';
     document.getElementById('sp-track-artist').textContent = song.artist;
     document.getElementById('sp-time-dur').textContent = song.duration;
     document.getElementById('sp-time-cur').textContent = '0:00';
     document.getElementById('sp-progress-fill').style.width = '0%';
 
-    // Build Lyrics Lines with English primary and Indonesian translation
+    // Build Lyrics Lines - Full English
     const container = document.getElementById('sp-lyrics-container');
     container.innerHTML = '';
     song.lyrics.forEach(item => {
-      if (!item.id && !item.en) {
+      if (!item.en && !item.id) {
         const spacer = document.createElement('div');
         spacer.className = 'sp-lyric-space';
         container.appendChild(spacer);
@@ -1849,13 +2018,6 @@
         mainEl.className = 'sp-lyric-orig';
         mainEl.textContent = item.en || item.id;
         itemEl.appendChild(mainEl);
-
-        if (item.id && item.en) {
-          const transEl = document.createElement('div');
-          transEl.className = 'sp-lyric-trans';
-          transEl.textContent = item.id;
-          itemEl.appendChild(transEl);
-        }
 
         container.appendChild(itemEl);
       }
