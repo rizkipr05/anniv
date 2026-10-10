@@ -714,7 +714,7 @@
       margin: auto 0;
     }
     .pass-card .dog-img {
-      width: min(84px, 15vh);
+      width: min(96px, 16vh);
       height: auto;
       margin-bottom: 2px;
       object-fit: contain;
@@ -849,7 +849,7 @@
     /* ── screen-home (Grid) ── */
     #screen-home { justify-content: safe center; padding: 20px 18px 16px 18px; gap: 0; }
     #screen-home h2 { font-size: clamp(1.15rem, 3.6vw, 1.35rem); line-height: 1.25; color: #1a1a1a; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 2px; }
-    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.4vh, 10px); width: 100%; max-width: min(280px, 78vw); margin: 4px auto 8px auto; }
+    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.4vh, 10px); width: 100%; max-width: min(305px, 84vw); margin: 4px auto 8px auto; }
     .home-grid-item {
       background: transparent; border-radius: 12px; padding: 0; display: flex; align-items: center; justify-content: center;
       cursor: pointer; border: none; transition: transform 0.15s ease, filter 0.15s ease; aspect-ratio: 83 / 90;
@@ -925,14 +925,14 @@
 
   <!-- ═══════ SCREEN 2: WELCOME ═══════ -->
   <div class="screen screen-light" id="screen-welcome">
-    <img src="dog_welcome.png" alt="cute dog with glasses" style="width:140px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <img src="dog_welcome.png" alt="cute dog with glasses" style="width:165px; max-height:min(160px, 21vh); object-fit:contain;" class="float"/>
     <h2 class="serif text-center" style="font-size:1.5rem; color:#222; margin-top:14px;">Hi, Dear!!!</h2>
     <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
 
   <!-- ═══════ SCREEN 3: QUESTION ═══════ -->
   <div class="screen screen-light" id="screen-question">
-    <img src="dog_question.png" alt="dog eating strawberry" style="width:145px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <img src="dog_question.png" alt="dog eating strawberry" style="width:170px; max-height:min(160px, 21vh); object-fit:contain;" class="float"/>
     <h2 class="serif text-center" style="font-size:1.35rem; color:#222; margin-top:14px; line-height:1.35;">Are you ready<br>for the surprise?</h2>
     <div class="btn-row" style="margin-top:14px; display:flex; gap:14px;">
       <button class="btn-primary" onclick="goTo('screen-yes1')" style="padding:7px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Yes!</button>
@@ -942,21 +942,21 @@
 
   <!-- ═══════ SCREEN 4: NO ═══════ -->
   <div class="screen screen-light" id="screen-no">
-    <img src="dog_no.png" alt="dummy dog" style="width:140px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <img src="dog_no.png" alt="dummy dog" style="width:165px; max-height:min(160px, 21vh); object-fit:contain;" class="float"/>
     <h2 class="serif text-center" style="font-size:1.3rem; color:#222; line-height:1.35; margin-top:14px;">SKY!!! YOU BIG<br>DUMMY!!!</h2>
     <button class="btn-primary" onclick="goTo('screen-question')" style="margin-top:14px; padding:7px 26px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Back</button>
   </div>
 
   <!-- ═══════ SCREEN 5: YES 1 (100 Days) ═══════ -->
   <div class="screen screen-light" id="screen-yes1">
-    <img src="dog_yes1.png" alt="dog with heart" style="width:145px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <img src="dog_yes1.png" alt="dog with heart" style="width:170px; max-height:min(160px, 21vh); object-fit:contain;" class="float"/>
     <h2 class="serif text-center" style="font-size:1.25rem; color:#222; line-height:1.35; margin-top:14px;">Today is a special day,<br>our 100 days anniversary!</h2>
     <button class="btn-primary" onclick="goTo('screen-yes2')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
 
   <!-- ═══════ SCREEN 6: YES 2 (Partner Birthday) ═══════ -->
   <div class="screen screen-light" id="screen-yes2">
-    <img src="dog_yes2.png" alt="dog standing" style="width:135px; max-height:min(135px, 18vh); object-fit:contain;" class="float"/>
+    <img src="dog_yes2.png" alt="dog standing" style="width:160px; max-height:min(155px, 21vh); object-fit:contain;" class="float"/>
     <h2 class="serif text-center" style="font-size:1.2rem; color:#222; line-height:1.35; margin-top:14px;">Together with that, I also<br>want to celebrate my<br>partner's birthday!</h2>
     <button class="btn-primary" onclick="goTo('screen-yes3')" style="margin-top:12px; padding:8px 24px; border-radius:24px; background:#971c1e; font-family:'Playfair Display', serif; font-size:0.95rem;">Tap Here &lt;3</button>
   </div>
@@ -1100,7 +1100,7 @@
   <div class="screen screen-light" id="screen-cake" style="gap: 6px;">
     <div class="confetti-container" id="confetti-cake"></div>
     <h2 class="text-center serif" style="font-size:1.45rem; line-height:1.3; color:#222; margin-top:2px; margin-bottom: 4px;">A Special Cake<br>For Today's Star!</h2>
-    <img src="cake_strawberry_transparent.png" alt="A Special Birthday Cake" class="float" style="width:230px; max-width:80%; max-height:min(180px, 24vh); object-fit:contain; margin: 8px 0 12px 0;" />
+    <img src="cake_strawberry_transparent.png" alt="A Special Birthday Cake" class="float" style="width:260px; max-width:88%; max-height:min(215px, 28vh); object-fit:contain; margin: 8px 0 10px 0;" />
     <h2 class="text-center serif" style="font-size:1.3rem; line-height:1.3; color:#222; margin-bottom: 12px;">Close Your Eyes and<br>Make a Wish, Dear!</h2>
     <button class="btn-primary" onclick="goTo('screen-cake1')">Blow the Candle</button>
   </div>
@@ -1109,7 +1109,7 @@
   <div class="screen screen-light" id="screen-cake1" style="gap: 6px;">
     <div class="confetti-container" id="confetti-cake1"></div>
     <h2 class="text-center serif" style="font-size:1.4rem; line-height:1.25; color:#222; margin-top:2px; margin-bottom: 2px;">Happy Birthday &amp;<br>Happy 100 Days, Dear!</h2>
-    <img src="dog_party_transparent.png" alt="Happy Birthday Dog" class="float" style="width:190px; max-height:min(160px, 22vh); object-fit:contain; margin: 8px 0 6px 0; cursor: pointer;" />
+    <img src="dog_party_transparent.png?v=2" alt="Happy Birthday Dog" class="float" style="width:250px; max-width:85%; max-height:min(215px, 28vh); object-fit:contain; margin: 8px 0 8px 0; cursor: pointer;" />
     <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.25; color:#222; margin-bottom: 2px;">Double The Celebration,<br>Double The Happiness!</h2>
     <p style="font-size:0.75rem; color:#444; text-align:center; font-family:'Nunito', sans-serif; line-height:1.4; margin-bottom: 12px;">Being with you is one of the best thing<br>that ever happened in my life! 💕💕💕</p>
     <button class="btn-back-outline" onclick="goTo('screen-home')">Back</button>
@@ -1119,7 +1119,7 @@
   <div class="screen screen-light" id="screen-flower" style="gap: 6px;">
     <div class="confetti-container" id="confetti-flower"></div>
     <h2 class="text-center serif" style="font-size:1.35rem; line-height:1.3; color:#a41c27; margin-top:4px; margin-bottom: 2px;">💕 Here's A Bouquet Of<br>Flowers For You! 💕</h2>
-    <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:210px; max-width:82%; max-height:min(175px, 23vh); object-fit:contain; margin: 10px 0 10px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
+    <img src="flower_bouquet_transparent.png" alt="Bouquet of Flowers" class="float" style="width:250px; max-width:86%; max-height:min(215px, 28vh); object-fit:contain; margin: 10px 0 10px 0; cursor:pointer;" onclick="goTo('screen-flower1')" />
     <h2 class="text-center serif" style="font-size:1.25rem; line-height:1.35; color:#222; margin-bottom: 6px;">Tap The Flowers To<br>Unwrap Your Surprise</h2>
   </div>
 
@@ -1188,7 +1188,7 @@
   <!-- ═══════ SCREEN: PHOTO 1 ═══════ -->
   <div class="screen screen-light" id="screen-photo1" style="gap: 5px;">
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-top:4px;">These 100 days have given<br>us so many wonderful little<br>moments</h2>
-    <img src="camera_polaroid_transparent.png" alt="Instant camera and polaroid" class="float" style="width: 250px; max-width: 82%; max-height:min(180px, 24vh); object-fit:contain; margin: 12px 0 16px 0;" />
+    <img src="camera_polaroid_transparent.png" alt="Instant camera and polaroid" class="float" style="width: 285px; max-width: 88%; max-height:min(220px, 29vh); object-fit:contain; margin: 10px 0 14px 0;" />
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-bottom: 10px;">Here are some of the<br>ones I treasure most!</h2>
     <button class="btn-primary lb" style="margin-top:14px; font-weight:400 !important;" onclick="goTo('screen-collage')">Open The Album</button>
   </div>
@@ -1197,7 +1197,7 @@
   <div class="screen" id="screen-collage" style="background: #a41c27; padding: 0; display: flex; flex-direction: column; overflow: hidden;">
     <div class="album-scroll">
       <div class="album">
-        <div class="album-title1">100 Days Of</div>
+        <div class="album-title1">100 Days</div>
         <div class="album-title2">Memories</div>
 
         <div class="pol" style="left:20px; top:112px; width:146px; transform:rotate(-4deg);">
@@ -1208,7 +1208,7 @@
 
         <div class="pol wide-cap" style="left:150px; top:285px; width:192px; transform:rotate(5deg);">
           <div class="ph" style="height:110px;"><img src="photos/foto2.jpg?v=3" alt=""></div>
-          <div class="cap">watching him on jail times for the<br>first time</div>
+          <div class="cap">putting him on jail times for the<br>first time</div>
         </div>
 
         <div class="pol no-cap" style="left:16px; top:442px; width:104px; transform:rotate(-6deg);">
@@ -1217,11 +1217,11 @@
         <div class="pol no-cap" style="left:122px; top:418px; width:102px; transform:rotate(3deg);">
           <div class="ph" style="height:120px;"><img src="photos/foto4.jpg?v=3" alt=""></div>
         </div>
-        <div class="album-note" style="left:228px; top:450px; width:125px;">Escaping my<br>partner in jail<br>is my love<br>language UwU</div>
+        <div class="album-note" style="left:228px; top:450px; width:125px;">trapping my<br>partner in jail<br>is my love<br>language UwU</div>
 
         <div class="pol" style="left:28px; top:595px; width:116px; transform:rotate(7deg);">
           <div class="ph" style="height:115px;"><img src="photos/foto5.jpg?v=3" alt=""></div>
-          <div class="cap">moon gazing</div>
+          <div class="cap">moongazing</div>
         </div>
 
         <div class="pol" style="left:166px; top:585px; width:175px; transform:rotate(0deg); padding-bottom: 22px;">
@@ -1237,22 +1237,22 @@
 
         <div class="pol" style="left:12px; top:915px; width:195px; transform:rotate(7.5deg);">
           <div class="ph" style="height:115px;"><img src="photos/foto9.jpg?v=3" alt=""></div>
-          <div class="cap" style="font-size: 0.52rem;">hot fit for my partner</div>
+          <div class="cap" style="font-size: 0.6rem;">our first sky dance</div>
         </div>
 
         <div class="pol wide-cap" style="left:142px; top:1045px; width:202px; transform:rotate(-4deg);">
           <div class="ph" style="height:112px;"><img src="photos/foto10.jpg?v=3" alt=""></div>
-          <div class="cap">watching people suffering inside<br>the maze lmao</div>
+          <div class="cap">watching people suffering inside<br>the maze tower</div>
         </div>
 
         <div class="pol" style="left:18px; top:1180px; width:198px; transform:rotate(6deg);">
           <div class="ph" style="height:112px;"><img src="photos/foto11.jpg?v=3" alt=""></div>
-          <div class="cap">lantern festival date!!</div>
+          <div class="cap">lantern festival date~</div>
         </div>
 
         <div class="pol wide-cap" style="left:32px; top:1315px; width:295px; transform:rotate(-1.5deg);">
           <div class="ph" style="height:128px;"><img src="photos/foto12.jpg?v=3" alt=""></div>
-          <div class="cap" style="font-size: 0.55rem; letter-spacing: 0.5px;">HAVE I MENTION ABOUT HOW<br>STUNNING MY PARTNER IS??!!</div>
+          <div class="cap" style="font-size: 0.55rem; letter-spacing: 0.5px;">HAVE I MENTION ABOUT HOW<br>STUNNING MY PARTNER IS?!?!</div>
         </div>
 
         <div class="pol wide-cap" style="left:24px; top:1495px; width:145px; transform:rotate(-2deg);">
@@ -1261,7 +1261,7 @@
         </div>
         <div class="pol wide-cap" style="left:185px; top:1490px; width:148px; transform:rotate(2deg);">
           <div class="ph" style="height:126px;"><img src="photos/foto14.jpg?v=3" alt=""></div>
-          <div class="cap">...yeah, I don't know how I<br>should react.</div>
+          <div class="cap">...yeah, i still love him, i<br>think?</div>
         </div>
       </div>
       <div class="text-center" style="padding: 15px 0 45px;">
@@ -1274,7 +1274,7 @@
   <div class="screen screen-light" id="screen-music1" style="gap: 5px;">
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-top: 8px; margin-bottom: 8px;">Some Songs Make Me<br>Think Of You Every Time I<br>Hear Them</h2>
     
-    <img src="red_ipod.png" alt="iPod with Earphones" class="float" style="width: 230px; max-width: 82%; max-height:min(175px, 23vh); object-fit:contain; margin: 8px 0 14px 0;" />
+    <img src="red_ipod.png" alt="iPod with Earphones" class="float" style="width: 260px; max-width: 86%; max-height:min(215px, 28vh); object-fit:contain; margin: 8px 0 12px 0;" />
     
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.35; color:#222; margin-bottom: 14px;">Do You Want To Hear It,<br>Dear?</h2>
     
@@ -1421,7 +1421,7 @@
     <h2 class="text-center lb" style="font-size:1.1rem; color:#222; margin-top: 4px; margin-bottom: 4px;">Tweet tweet!</h2>
     <h2 class="text-center lb" style="font-size:1.3rem; line-height:1.3; color:#222; margin-bottom: 10px;">A Lil' Birdie Has<br>Brought You A Letter!</h2>
     
-    <img src="bird_letter_transparent.png?v=2" alt="Bird Letter" class="float" style="width: 230px; max-width: 80%; max-height:min(175px, 23vh); object-fit:contain; margin-bottom: 12px;" />
+    <img src="bird_letter_transparent.png?v=2" alt="Bird Letter" class="float" style="width: 265px; max-width: 86%; max-height:min(220px, 29vh); object-fit:contain; margin-bottom: 12px;" />
     
     <h2 class="text-center lb" style="font-size:1.2rem; line-height:1.3; color:#222; margin-bottom: 14px;">Aren't You Curious To<br>See What's Inside?</h2>
     <button class="btn-primary lb" style="font-weight:400 !important; padding: 10px 28px;" onclick="goTo('screen-letter2')">Take A Peek</button>
