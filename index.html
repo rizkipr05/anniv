@@ -628,6 +628,29 @@
         padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
       }
 
+      #screen-home {
+        padding-top: max(12px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px)) !important;
+        padding-left: max(14px, env(safe-area-inset-left)) !important;
+        padding-right: max(14px, env(safe-area-inset-right)) !important;
+      }
+
+      #screen-gift {
+        padding-top: max(14px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(20px, calc(env(safe-area-inset-bottom) + 10px)) !important;
+      }
+
+      #screen-letter2 {
+        padding-top: max(14px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px)) !important;
+      }
+
+      #screen-flower1,
+      #screen-memory {
+        padding-top: max(20px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(28px, calc(env(safe-area-inset-bottom) + 16px)) !important;
+      }
+
       #screen-music2,
       #screen-collage {
         padding-top: 0 !important;
@@ -847,21 +870,74 @@
     .timeline-text { font-size: 0.66rem; line-height: 1.35; flex: 1; color: #e4e4e4; font-family: 'Nunito', sans-serif; }
 
     /* ── screen-home (Grid) ── */
-    #screen-home { justify-content: safe center; padding: 20px 18px 16px 18px; gap: 0; }
-    #screen-home h2 { font-size: clamp(1.15rem, 3.6vw, 1.35rem); line-height: 1.25; color: #1a1a1a; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 2px; }
-    .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(6px, 1.4vh, 10px); width: 100%; max-width: min(305px, 84vw); margin: 4px auto 8px auto; }
+    #screen-home {
+      justify-content: center;
+      justify-content: safe center;
+      padding: clamp(10px, 2vh, 18px) 16px max(18px, calc(env(safe-area-inset-bottom) + 12px)) 16px;
+      gap: 0;
+      box-sizing: border-box;
+    }
+    #screen-home h2 {
+      font-size: clamp(1.08rem, 3.3vw, 1.28rem);
+      line-height: 1.22;
+      color: #1a1a1a;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin: 0 0 clamp(2px, 0.6vh, 4px) 0;
+      flex-shrink: 0;
+    }
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(5px, 1.1vh, 8px);
+      width: 100%;
+      max-width: min(265px, 78vw, calc((100dvh - 200px) * 0.58), calc((100vh - 200px) * 0.58));
+      margin: clamp(2px, 0.6vh, 6px) auto clamp(4px, 1vh, 8px) auto;
+      flex-shrink: 0;
+    }
     .home-grid-item {
-      background: transparent; border-radius: 12px; padding: 0; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; border: none; transition: transform 0.15s ease, filter 0.15s ease; aspect-ratio: 83 / 90;
+      background: transparent;
+      border-radius: clamp(8px, 2vw, 12px);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      aspect-ratio: 83 / 90;
       overflow: hidden;
     }
     .home-grid-item:hover { transform: translateY(-2px); filter: brightness(1.05); }
     .home-grid-item:active { transform: scale(0.96); }
-    .home-grid-item img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 12px; }
+    .home-grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: clamp(8px, 2vw, 12px);
+    }
+
+    .home-footer {
+      width: 100%;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .home-quote {
+      font-size: clamp(0.7rem, 2.2vw, 0.76rem);
+      color: #1a1a1a;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin: 0 0 clamp(6px, 1.2vh, 10px) 0;
+      line-height: 1.32;
+    }
 
     .btn-home-replay {
       background: #971c1e; color: #fff; border: none; border-radius: 999px;
-      padding: 6px 22px; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+      padding: clamp(5px, 0.9vh, 7px) clamp(18px, 5vw, 24px);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.92rem, 2.5vw, 1.02rem);
+      font-weight: 700;
       cursor: pointer; box-shadow: 0 4px 10px rgba(151,28,30,0.3); transition: transform 0.15s, background 0.15s;
     }
     .btn-home-replay:hover { background: #a82022; }
@@ -869,11 +945,47 @@
 
     .btn-home-back {
       background: #dcd9d4; color: #1a1a1a; border: 2px solid #971c1e; border-radius: 999px;
-      padding: 5px 22px; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+      padding: clamp(4px, 0.8vh, 6px) clamp(18px, 5vw, 24px);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.92rem, 2.5vw, 1.02rem);
+      font-weight: 700;
       cursor: pointer; transition: transform 0.15s, background 0.15s;
     }
     .btn-home-back:hover { background: #cfcbc5; }
     .btn-home-back:active { transform: scale(0.95); }
+
+    @media (max-height: 680px) {
+      #screen-home h2 {
+        font-size: 1.12rem !important;
+        margin-bottom: 2px !important;
+      }
+      .home-grid {
+        max-width: min(240px, 72vw, calc((100dvh - 180px) * 0.56)) !important;
+        gap: 6px !important;
+        margin: 2px auto 6px auto !important;
+      }
+      .home-quote {
+        font-size: 0.68rem !important;
+        margin-bottom: 6px !important;
+        line-height: 1.25 !important;
+      }
+      .btn-home-replay, .btn-home-back {
+        padding: 4px 18px !important;
+        font-size: 0.9rem !important;
+      }
+    }
+
+    @media (max-height: 580px) {
+      #screen-home {
+        justify-content: flex-start !important;
+        padding-top: max(8px, env(safe-area-inset-top)) !important;
+      }
+      .home-grid {
+        max-width: min(205px, 66vw) !important;
+        gap: 4px !important;
+        margin: 2px auto 4px auto !important;
+      }
+    }
 
     /* ── screen-flower1 (Reasons) ── */
     #screen-flower1 { justify-content: flex-start; padding: 40px 20px; overflow-y: auto; }
@@ -1070,9 +1182,9 @@
         <img src="grid_santa.png" alt="Puppy with Santa Hat">
       </div>
     </div>
-    <div class="text-center" style="width: 100%;">
-      <p style="font-size:0.78rem; color:#1a1a1a; font-family:'Playfair Display', serif; font-weight:700; margin-bottom: 12px; line-height: 1.35;">May our journey together<br>continue to bring many more<br>wonderful memories!</p>
-      <div class="btn-row" style="gap: 16px;">
+    <div class="text-center home-footer">
+      <p class="home-quote">May our journey together<br>continue to bring many more<br>wonderful memories!</p>
+      <div class="btn-row" style="gap: clamp(10px, 3vw, 16px);">
         <button class="btn-home-replay" onclick="goTo('screen-memory')">Replay</button>
         <button class="btn-home-back" onclick="goTo('screen-question')">Back</button>
       </div>
@@ -1530,8 +1642,8 @@
   </div>
 
   <!-- ═══════ SCREEN: LETTER 2 ═══════ -->
-  <div class="screen screen-red" id="screen-letter2" style="padding: 16px 0; gap: 12px; background: #a41c27;">
-    <div style="background: #4a191d; border-radius: 22px; width: 88%; flex: 1; min-height: 0; padding: 20px 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column;">
+  <div class="screen screen-red" id="screen-letter2" style="padding: max(14px, env(safe-area-inset-top)) 0 max(20px, calc(env(safe-area-inset-bottom) + 12px)) 0; gap: 10px; background: #a41c27;">
+    <div style="background: #4a191d; border-radius: 22px; width: min(88%, 340px); flex: 1; min-height: 0; padding: clamp(14px, 2.2vh, 20px) 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column;">
       <div class="letter-body" style="overflow-y: auto; padding-right: 6px; flex: 1;">
         <h2 class="lb" style="color: #e6dfd3; font-size: 1.1rem; font-weight: 400 !important; margin-bottom: 14px;">To my dearest partner,</h2>
         
