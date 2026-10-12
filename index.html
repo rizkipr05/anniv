@@ -1660,7 +1660,7 @@
     host.outerHTML = html;
   })();
 
-  const SECRET = '100125';
+  const SECRET = '050726';
   let pin = '';
 
   function pressNum(n) {
@@ -1682,7 +1682,7 @@
   }
 
   function checkPin() {
-    if (pin === SECRET || pin === '110125' || pin === '100125') {
+    if (pin === SECRET) {
       goTo('screen-welcome');
       pin = '';
       renderDots();
